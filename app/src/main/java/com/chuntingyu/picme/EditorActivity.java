@@ -24,15 +24,13 @@ public class EditorActivity extends AppCompatActivity {
 
         img = (ImageView)findViewById(R.id.img);
 
-        uri = Uri.parse("file://" + MainActivity.al_images.get(album).getAl_imagepath().get(index));
-
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
 
-        Glide.with(this).load(uri).into(img);
+        uri = Uri.parse("file://" + MainActivity.al_images.get(album).getAl_imagepath().get(index));
 
         UCrop.of(uri, uri)
-                .withAspectRatio(16, 9)
+//                .withAspectRatio(16, 9)
                 .withMaxResultSize(350, 350)
                 .start(this);
     }
@@ -41,6 +39,9 @@ public class EditorActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
+
+            Glide.with(this).load(resultUri).into(img);
+
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
         }
