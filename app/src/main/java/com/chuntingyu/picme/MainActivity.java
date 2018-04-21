@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     boolean boolean_folder;
     Adapter_PhotosFolder obj_adapter;
     GridView gv_folder;
-    Button start;
-    private static final int REQUEST_PERMISSIONS = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
