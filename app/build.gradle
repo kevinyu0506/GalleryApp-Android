@@ -36,4 +36,6 @@ dependencies {
 
     compile 'com.github.eventtus:photo-editor-android:v1.0'
 
+    compile 'com.github.yalantis:ucrop:2.2.2'
+
 }
