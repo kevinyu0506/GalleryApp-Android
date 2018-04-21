@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
-                fn_imagespath();
             }
         });
 
