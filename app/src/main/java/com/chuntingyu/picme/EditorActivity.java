@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.yalantis.ucrop.UCrop;
 
 public class EditorActivity extends AppCompatActivity {
@@ -16,13 +17,15 @@ public class EditorActivity extends AppCompatActivity {
     int index;
     Uri uri;
     ImageView img;
+    MyCanvasView myCanvasView;
+    ViewTarget viewTarget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        img = (ImageView)findViewById(R.id.img);
+//        img = (ImageView)findViewById(R.id.img);
 
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
@@ -34,7 +37,11 @@ public class EditorActivity extends AppCompatActivity {
 //                .withMaxResultSize(350, 350)
 //                .start(this);
 
-        Glide.with(this).asBitmap().load(uri).into(img);
+
+        myCanvasView = new MyCanvasView(this);
+
+        Glide.with(this).asBitmap().load(uri).into(myCanvasView);
+
 
     }
 
