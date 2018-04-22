@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -18,8 +20,9 @@ import com.bumptech.glide.request.target.SimpleTarget;
  * Created by Kevin on 2018/4/22.
  */
 
-public class MyCanvasView extends AppCompatImageView {
+public class MyCanvasView extends View{
 
+    Bitmap mBitmap;
     private Paint mPaint;
     private Path mPath;
     private int mDrawColor;
@@ -41,6 +44,9 @@ public class MyCanvasView extends AppCompatImageView {
 
 //        mBackgroundColor = ResourcesCompat.getColor(getResources(),
 //                R.color.opaque_orange, null);
+
+//        mExtraBitmap = bitmap;
+//        mExtraCanvas = new Canvas(mExtraBitmap);
 
         mDrawColor = ResourcesCompat.getColor(getResources(),
                 R.color.opaque_yellow, null);
@@ -67,9 +73,15 @@ public class MyCanvasView extends AppCompatImageView {
         super.onSizeChanged(width, height, oldWidth, oldHeight);
 
         // Create bitmap, create canvas with bitmap, fill canvas with color.
-        mExtraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        if (mBitmap == null){
+            mExtraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        } else {
+            mExtraBitmap = Bitmap.createBitmap(mBitmap);
+        }
+
+
+//        mExtraBitmap = Bitmap.createBitmap(mBitmap);
         mExtraCanvas = new Canvas(mExtraBitmap);
-//        mExtraCanvas = new Canvas();
 
         // Fill the Bitmap with the background color.
 //        mExtraCanvas.drawColor(mBackgroundColor);
@@ -84,6 +96,8 @@ public class MyCanvasView extends AppCompatImageView {
         // Draw the bitmap that stores the path the user has drawn.
         // Initially the user has not drawn anything
         // so we see only the colored bitmap.
+
+//        canvas.drawBitmap(mExtraBitmap, 0, 0, null);
         canvas.drawBitmap(mExtraBitmap, 0, 0, null);
 
     }
@@ -142,4 +156,10 @@ public class MyCanvasView extends AppCompatImageView {
         mPath.reset();
     }
 
+    public void setPicture (Bitmap bitmap) {
+
+        mBitmap = bitmap;
+//        setBackground(bitmap);
+
+    }
 }
