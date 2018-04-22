@@ -29,23 +29,26 @@ public class EditorActivity extends AppCompatActivity {
 
         uri = Uri.parse("file://" + MainActivity.al_images.get(album).getAl_imagepath().get(index));
 
-        UCrop.of(uri, uri)
-//                .withAspectRatio(16, 9)
-                .withMaxResultSize(350, 350)
-                .start(this);
+//        UCrop.of(uri, uri)
+////                .withAspectRatio(16, 9)
+//                .withMaxResultSize(350, 350)
+//                .start(this);
+
+        Glide.with(this).asBitmap().load(uri).into(img);
+
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            final Uri resultUri = UCrop.getOutput(data);
-
-            Glide.with(this).load(resultUri).into(img);
-
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            final Throwable cropError = UCrop.getError(data);
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+//            final Uri resultUri = UCrop.getOutput(data);
+//
+//            Glide.with(this).load(resultUri).into(img);
+//
+//        } else if (resultCode == UCrop.RESULT_ERROR) {
+//            final Throwable cropError = UCrop.getError(data);
+//        }
+//    }
 
 
 }

@@ -21,10 +21,10 @@
         </activity>
         <activity android:name=".PhotosActivity" />
         <activity android:name=".EditorActivity"></activity>
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <!--<activity-->
+            <!--android:name="com.yalantis.ucrop.UCropActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>-->
     </application>
 
 </manifest>
