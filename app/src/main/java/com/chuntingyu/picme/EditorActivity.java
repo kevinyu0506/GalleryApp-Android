@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -38,11 +39,10 @@ public class EditorActivity extends AppCompatActivity{
     Bitmap alteredBitmap;
     Canvas canvas;
     Paint paint;
-    Matrix matrix;
-    float downx = 0;
-    float downy = 0;
-    float upx = 0;
-    float upy = 0;
+    Path path;
+
+    private float mX, mY;
+    private static final float TOUCH_TOLERANCE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,60 +70,104 @@ public class EditorActivity extends AppCompatActivity{
 
             }
         });
+
+        init();
+
     }
 
+    private void init(){
 
-    private SimpleTarget target = new SimpleTarget<Bitmap>(250, 250) {
+        paint = new Paint();
+        paint.setColor(Color.GREEN);
+//            matrix = new Matrix();
+        path = new Path();
+        // Smoothes out edges of what is drawn without affecting shape.
+        paint.setAntiAlias(true);
+        // Dithering affects how colors with higher-precision device
+        // than the are down-sampled.
+        paint.setDither(true);
+        paint.setStyle(Paint.Style.STROKE); // default: FILL
+        paint.setStrokeJoin(Paint.Join.ROUND); // default: MITER
+        paint.setStrokeCap(Paint.Cap.ROUND); // default: BUTT
+        paint.setStrokeWidth(12); // default: Hairline-width (really thin)
+
+        img.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                float x = event.getX();
+                float y = event.getY();
+
+                // Invalidate() is inside the case statements because there are many
+                // other types of motion events passed into this listener,
+                // and we don't want to invalidate the view for those.
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        touchStart(x, y);
+                        // No need to invalidate because we are not drawing anything.
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        touchMove(x, y);
+                        img.invalidate();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        touchUp();
+                        // No need to invalidate because we are not drawing anything.
+                        break;
+                    default:
+                        // Do nothing.
+                }
+                return true;
+            }
+        });
+
+    }
+
+    private SimpleTarget target = new SimpleTarget<Bitmap>() {
 
         @Override
         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
 
             bmp = bitmap;
             alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
-
+//            alteredBitmap = Bitmap.createBitmap(bmp);
             canvas = new Canvas(alteredBitmap);
-            paint = new Paint();
-            paint.setColor(Color.GREEN);
-            paint.setStrokeWidth(5);
-            matrix = new Matrix();
-            canvas.drawBitmap(bmp, matrix, paint);
+
+            canvas.drawBitmap(bmp, 0,0, paint);
 
             img.setImageBitmap(alteredBitmap);
-            img.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    int action = event.getAction();
-                    switch (action) {
-                        case MotionEvent.ACTION_DOWN:
-                            downx = event.getX();
-                            downy = event.getY();
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            upx = event.getX();
-                            upy = event.getY();
-                            canvas.drawLine(downx, downy, upx, upy, paint);
-                            img.invalidate();
-                            downx = upx;
-                            downy = upy;
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            upx = event.getX();
-                            upy = event.getY();
-                            canvas.drawLine(downx, downy, upx, upy, paint);
-                            img.invalidate();
-                            break;
-                        case MotionEvent.ACTION_CANCEL:
-                            break;
-                        default:
-                            break;
-                    }
-                    return true;
-                }
-            });
+
 
         }
 
     };
+
+    private void touchStart(float x, float y) {
+        path.moveTo(x, y);
+        mX = x;
+        mY = y;
+    }
+
+    private void touchMove(float x, float y) {
+        float dx = Math.abs(x - mX);
+        float dy = Math.abs(y - mY);
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            // QuadTo() adds a quadratic bezier from the last point,
+            // approaching control point (x1,y1), and ending at (x2,y2).
+            path.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            // Reset mX and mY to the last drawn point.
+            mX = x;
+            mY = y;
+            // Save the path in the extra bitmap,
+            // which we access through its canvas.
+            canvas.drawPath(path, paint);
+        }
+    }
+
+    private void touchUp() {
+        // Reset the path so it doesn't get drawn again.
+        path.reset();
+    }
 
 
     private void loadImageSimpleTarget() {
