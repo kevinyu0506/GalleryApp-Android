@@ -22,7 +22,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 public class MyCanvasView extends View{
 
-    Bitmap mBitmap;
+    public int test = 0;
+    public Bitmap mBitmap = null;
     private Paint mPaint;
     private Path mPath;
     private int mDrawColor;
@@ -37,16 +38,10 @@ public class MyCanvasView extends View{
         this(context, null);
     }
 
-
-
     public MyCanvasView(Context context, AttributeSet attributeSet) {
         super(context);
 
-//        mBackgroundColor = ResourcesCompat.getColor(getResources(),
-//                R.color.opaque_orange, null);
-
-//        mExtraBitmap = bitmap;
-//        mExtraCanvas = new Canvas(mExtraBitmap);
+        mBackgroundColor = ResourcesCompat.getColor(getResources(), R.color.opaque_orange, null);
 
         mDrawColor = ResourcesCompat.getColor(getResources(),
                 R.color.opaque_yellow, null);
@@ -84,7 +79,7 @@ public class MyCanvasView extends View{
         mExtraCanvas = new Canvas(mExtraBitmap);
 
         // Fill the Bitmap with the background color.
-//        mExtraCanvas.drawColor(mBackgroundColor);
+        mExtraCanvas.drawColor(mBackgroundColor);
 
     }
 
@@ -154,12 +149,22 @@ public class MyCanvasView extends View{
     private void touchUp() {
         // Reset the path so it doesn't get drawn again.
         mPath.reset();
+        setmBackgroundColor();
     }
 
-    public void setPicture (Bitmap bitmap) {
+    public void setmBackgroundColor () {
 
-        mBitmap = bitmap;
+        mBackgroundColor = ResourcesCompat.getColor(getResources(), R.color.black, null);
+        mExtraCanvas.drawColor(mBackgroundColor);
 //        setBackground(bitmap);
 
+    }
+
+    public void setmBitmap(Bitmap bitmap) {
+        this.mBitmap = bitmap;
+    }
+
+    public void setTest(int num) {
+        this.test = num;
     }
 }

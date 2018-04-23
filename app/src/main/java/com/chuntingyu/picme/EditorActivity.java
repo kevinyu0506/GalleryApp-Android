@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,8 @@ public class EditorActivity extends AppCompatActivity{
     Uri uri;
     MyCanvasView myCanvasView;
     ViewTarget viewTarget;
+    Button btn;
+    Bitmap mBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class EditorActivity extends AppCompatActivity{
         setContentView(R.layout.activity_editor);
 
 //        img = (ImageView)findViewById(R.id.img);
+        btn = (Button) findViewById(R.id.btn);
 
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
@@ -47,19 +52,37 @@ public class EditorActivity extends AppCompatActivity{
 
 //        Glide.with(this).asBitmap().load(uri).into(myCanvasView);
 
-        myCanvasView = new MyCanvasView(getApplicationContext());
+        myCanvasView = new MyCanvasView(this);
+        myCanvasView.setTest(9);
 
         loadImageSimpleTarget();
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 
-    private BaseTarget target = new BaseTarget<BitmapDrawable>() {
+    private BaseTarget target = new BaseTarget<Bitmap>() {
         @Override
-        public void onResourceReady(BitmapDrawable bitmap, Transition<? super BitmapDrawable> transition) {
+        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
             // do something with the bitmap
 //            myCanvasView = new MyCanvasView(getApplicationContext());
-            myCanvasView.setPicture(bitmap.getBitmap());
+//            myCanvasView.setPicture(bitmap.getBitmap());
+            if (bitmap != null){
+
+                mBitmap = bitmap.copy(bitmap.getConfig(),true);
+
+//                myCanvasView.setmBitmap(bitmap.copy(bitmap.getConfig(),true));
+                myCanvasView.setmBitmap(mBitmap);
+
+            } else {
+
+            }
+
         }
 
         @Override
@@ -74,6 +97,7 @@ public class EditorActivity extends AppCompatActivity{
 
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
+                .asBitmap()
                 .load(uri)
                 .into(target);
     }

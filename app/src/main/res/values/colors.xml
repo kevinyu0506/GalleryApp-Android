@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="opaque_yellow">#FFFFEB3B</color>
+    <color name="opaque_orange">#FFFF5500</color>
+    <color name="black">#000000</color>
 </resources>
