@@ -29,12 +29,14 @@ public class EditorActivity extends AppCompatActivity{
     Button btn;
     Bitmap mBitmap = null;
 
+    ImageView img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-//        img = (ImageView)findViewById(R.id.img);
+        img = (ImageView)findViewById(R.id.img);
         btn = (Button) findViewById(R.id.btn);
 
         album = getIntent().getIntExtra("album", 0);
@@ -50,12 +52,12 @@ public class EditorActivity extends AppCompatActivity{
 
 //        myCanvasView = new MyCanvasView(this);
 
-//        Glide.with(this).asBitmap().load(uri).into(myCanvasView);
+        Glide.with(this).asBitmap().load(uri).into(img);
 
-        myCanvasView = new MyCanvasView(this);
-        myCanvasView.setTest(9);
-
-        loadImageSimpleTarget();
+//        myCanvasView = new MyCanvasView(this);
+//        myCanvasView.setTest(9);
+//
+//        loadImageSimpleTarget();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,41 +68,41 @@ public class EditorActivity extends AppCompatActivity{
     }
 
 
-    private BaseTarget target = new BaseTarget<Bitmap>() {
-        @Override
-        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-            // do something with the bitmap
-//            myCanvasView = new MyCanvasView(getApplicationContext());
-//            myCanvasView.setPicture(bitmap.getBitmap());
-            if (bitmap != null){
-
-                mBitmap = bitmap.copy(bitmap.getConfig(),true);
-
-//                myCanvasView.setmBitmap(bitmap.copy(bitmap.getConfig(),true));
-                myCanvasView.setmBitmap(mBitmap);
-
-            } else {
-
-            }
-
-        }
-
-        @Override
-        public void getSize(SizeReadyCallback cb) {
-            cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL);
-        }
-
-        @Override
-        public void removeCallback(SizeReadyCallback cb) {}
-    };
-
-
-    private void loadImageSimpleTarget() {
-        Glide.with(this) // could be an issue!
-                .asBitmap()
-                .load(uri)
-                .into(target);
-    }
+//    private BaseTarget target = new BaseTarget<Bitmap>() {
+//        @Override
+//        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+//            // do something with the bitmap
+////            myCanvasView = new MyCanvasView(getApplicationContext());
+////            myCanvasView.setPicture(bitmap.getBitmap());
+//            if (bitmap != null){
+//
+//                mBitmap = bitmap.copy(bitmap.getConfig(),true);
+//
+////                myCanvasView.setmBitmap(bitmap.copy(bitmap.getConfig(),true));
+//                myCanvasView.setmBitmap(mBitmap);
+//
+//            } else {
+//
+//            }
+//
+//        }
+//
+//        @Override
+//        public void getSize(SizeReadyCallback cb) {
+//            cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL);
+//        }
+//
+//        @Override
+//        public void removeCallback(SizeReadyCallback cb) {}
+//    };
+//
+//
+//    private void loadImageSimpleTarget() {
+//        Glide.with(this) // could be an issue!
+//                .asBitmap()
+//                .load(uri)
+//                .into(target);
+//    }
 
 
 //    @Override
