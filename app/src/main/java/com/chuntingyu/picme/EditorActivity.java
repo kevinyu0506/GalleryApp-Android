@@ -20,8 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BaseTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
+
 import com.bumptech.glide.request.target.ViewTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.yalantis.ucrop.UCrop;
 
 public class EditorActivity extends AppCompatActivity{
@@ -61,13 +62,6 @@ public class EditorActivity extends AppCompatActivity{
 //                .withMaxResultSize(350, 350)
 //                .start(this);
 
-//        Glide.with(this).asBitmap().load(uri).into(img);
-
-//        paint = new Paint();
-//        paint.setColor(Color.GREEN);
-//        paint.setStrokeWidth(5);
-//        matrix = new Matrix();
-//        canvas.drawBitmap(bmp, matrix, paint);
         loadImageSimpleTarget();
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -79,12 +73,10 @@ public class EditorActivity extends AppCompatActivity{
     }
 
 
-    private BaseTarget target = new BaseTarget<Bitmap>() {
+    private SimpleTarget target = new SimpleTarget<Bitmap>(250, 250) {
+
         @Override
-        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-            // do something with the bitmap
-//            myCanvasView = new MyCanvasView(getApplicationContext());
-//            myCanvasView.setPicture(bitmap.getBitmap());
+        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
 
             bmp = bitmap;
             alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
@@ -131,20 +123,13 @@ public class EditorActivity extends AppCompatActivity{
 
         }
 
-        @Override
-        public void getSize(SizeReadyCallback cb) {
-            cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL);
-        }
-
-        @Override
-        public void removeCallback(SizeReadyCallback cb) {}
     };
 
 
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
-                .asBitmap()
                 .load(uri)
+                .asBitmap()
                 .into(target);
     }
 
