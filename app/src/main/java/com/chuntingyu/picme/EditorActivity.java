@@ -3,10 +3,15 @@ package com.chuntingyu.picme;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,12 +29,19 @@ public class EditorActivity extends AppCompatActivity{
     int album;
     int index;
     Uri uri;
-    MyCanvasView myCanvasView;
-    ViewTarget viewTarget;
     Button btn;
-    Bitmap mBitmap = null;
 
     ImageView img;
+
+    Bitmap bmp;
+    Bitmap alteredBitmap;
+    Canvas canvas;
+    Paint paint;
+    Matrix matrix;
+    float downx = 0;
+    float downy = 0;
+    float upx = 0;
+    float upy = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +61,14 @@ public class EditorActivity extends AppCompatActivity{
 //                .withMaxResultSize(350, 350)
 //                .start(this);
 
+//        Glide.with(this).asBitmap().load(uri).into(img);
 
-//        myCanvasView = new MyCanvasView(this);
-
-        Glide.with(this).asBitmap().load(uri).into(img);
-
-//        myCanvasView = new MyCanvasView(this);
-//        myCanvasView.setTest(9);
-//
-//        loadImageSimpleTarget();
+//        paint = new Paint();
+//        paint.setColor(Color.GREEN);
+//        paint.setStrokeWidth(5);
+//        matrix = new Matrix();
+//        canvas.drawBitmap(bmp, matrix, paint);
+        loadImageSimpleTarget();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,41 +79,74 @@ public class EditorActivity extends AppCompatActivity{
     }
 
 
-//    private BaseTarget target = new BaseTarget<Bitmap>() {
-//        @Override
-//        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-//            // do something with the bitmap
-////            myCanvasView = new MyCanvasView(getApplicationContext());
-////            myCanvasView.setPicture(bitmap.getBitmap());
-//            if (bitmap != null){
-//
-//                mBitmap = bitmap.copy(bitmap.getConfig(),true);
-//
-////                myCanvasView.setmBitmap(bitmap.copy(bitmap.getConfig(),true));
-//                myCanvasView.setmBitmap(mBitmap);
-//
-//            } else {
-//
-//            }
-//
-//        }
-//
-//        @Override
-//        public void getSize(SizeReadyCallback cb) {
-//            cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL);
-//        }
-//
-//        @Override
-//        public void removeCallback(SizeReadyCallback cb) {}
-//    };
-//
-//
-//    private void loadImageSimpleTarget() {
-//        Glide.with(this) // could be an issue!
-//                .asBitmap()
-//                .load(uri)
-//                .into(target);
-//    }
+    private BaseTarget target = new BaseTarget<Bitmap>() {
+        @Override
+        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+            // do something with the bitmap
+//            myCanvasView = new MyCanvasView(getApplicationContext());
+//            myCanvasView.setPicture(bitmap.getBitmap());
+
+            bmp = bitmap;
+            alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+
+            canvas = new Canvas(alteredBitmap);
+            paint = new Paint();
+            paint.setColor(Color.GREEN);
+            paint.setStrokeWidth(5);
+            matrix = new Matrix();
+            canvas.drawBitmap(bmp, matrix, paint);
+
+            img.setImageBitmap(alteredBitmap);
+            img.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent event) {
+                    int action = event.getAction();
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                            downx = event.getX();
+                            downy = event.getY();
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            upx = event.getX();
+                            upy = event.getY();
+                            canvas.drawLine(downx, downy, upx, upy, paint);
+                            img.invalidate();
+                            downx = upx;
+                            downy = upy;
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            upx = event.getX();
+                            upy = event.getY();
+                            canvas.drawLine(downx, downy, upx, upy, paint);
+                            img.invalidate();
+                            break;
+                        case MotionEvent.ACTION_CANCEL:
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+        }
+
+        @Override
+        public void getSize(SizeReadyCallback cb) {
+            cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL);
+        }
+
+        @Override
+        public void removeCallback(SizeReadyCallback cb) {}
+    };
+
+
+    private void loadImageSimpleTarget() {
+        Glide.with(this) // could be an issue!
+                .asBitmap()
+                .load(uri)
+                .into(target);
+    }
 
 
 //    @Override
