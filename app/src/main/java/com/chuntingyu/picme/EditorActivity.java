@@ -123,7 +123,7 @@ public class EditorActivity extends AppCompatActivity{
 
     }
 
-    private SimpleTarget target = new SimpleTarget<Bitmap>() {
+    private SimpleTarget target = new SimpleTarget<Bitmap>(500, 500) {
 
         @Override
         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
