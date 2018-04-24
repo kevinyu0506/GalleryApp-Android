@@ -71,19 +71,19 @@ public class EditorActivity extends AppCompatActivity{
 
                 switch (id){
                     case R.id.color1:
-                        paint.setColor(Color.parseColor("#ffcdd2"));
+                        paint.setColor(Color.parseColor("#fff59d"));
                         break;
                     case R.id.color2:
-                        paint.setColor(Color.parseColor("#f8bbd0"));
+                        paint.setColor(Color.parseColor("#e6ee9c"));
                         break;
                     case R.id.color3:
-                        paint.setColor(Color.parseColor("#e1bee7"));
+                        paint.setColor(Color.parseColor("#c5e1a5"));
                         break;
                     case R.id.color4:
-                        paint.setColor(Color.parseColor("#d1c4e9"));
+                        paint.setColor(Color.parseColor("#a5d6a7"));
                         break;
                     case R.id.color5:
-                        paint.setColor(Color.parseColor("#c5cae9"));
+                        paint.setColor(Color.parseColor("#80cbc4"));
                         break;
 
                 }
@@ -117,7 +117,7 @@ public class EditorActivity extends AppCompatActivity{
     private void init(){
 
         paint = new Paint();
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.parseColor("#fff59d"));
 //            matrix = new Matrix();
         path = new Path();
         // Smoothes out edges of what is drawn without affecting shape.

@@ -42,16 +42,17 @@
             android:id="@+id/color1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rrb_backgroundColor="#ffcdd2"
+            app:rrb_backgroundColor="#fff59d"
             app:rrb_ripple="true"
             app:rrb_rippleColor="@color/black"
-            app:rrb_textColor="@color/black"/>
+            app:rrb_textColor="@color/black"
+            app:rrb_checked="true"/>
 
         <co.ceryle.radiorealbutton.RadioRealButton
             android:id="@+id/color2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rrb_backgroundColor="#f8bbd0"
+            app:rrb_backgroundColor="#e6ee9c"
             app:rrb_ripple="true"
             app:rrb_rippleColor="@color/black"
             app:rrb_textColor="@color/black"/>
@@ -60,7 +61,7 @@
             android:id="@+id/color3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rrb_backgroundColor="#e1bee7"
+            app:rrb_backgroundColor="#c5e1a5"
             app:rrb_ripple="true"
             app:rrb_rippleColor="@color/black"
             app:rrb_textColor="@color/black"/>
@@ -69,7 +70,7 @@
             android:id="@+id/color4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rrb_backgroundColor="#d1c4e9"
+            app:rrb_backgroundColor="#a5d6a7"
             app:rrb_ripple="true"
             app:rrb_rippleColor="@color/black"
             app:rrb_textColor="@color/black"/>
@@ -78,7 +79,7 @@
             android:id="@+id/color5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rrb_backgroundColor="#c5cae9"
+            app:rrb_backgroundColor="#80cbc4"
             app:rrb_ripple="true"
             app:rrb_rippleColor="@color/black"
             app:rrb_text="Button 5"
