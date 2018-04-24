@@ -46,12 +46,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
-            }
-        });
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
+                    findViewById(R.id.start).setVisibility(View.GONE);
+                }
+            });
+        } else {
+            findViewById(R.id.start).setVisibility(View.GONE);
+            MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
+        }
+
 
 
 

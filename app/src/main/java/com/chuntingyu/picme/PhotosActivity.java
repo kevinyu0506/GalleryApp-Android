@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 /**
@@ -22,6 +23,8 @@ public class PhotosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.start).setVisibility(View.GONE);
         gridView = (GridView)findViewById(R.id.gv_folder);
         int_position = getIntent().getIntExtra("value", 0);
         adapter = new GridViewAdapter(this,MainActivity.al_images,int_position);
