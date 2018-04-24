@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BaseTarget;
@@ -39,6 +40,8 @@ public class EditorActivity extends AppCompatActivity{
     Button btn;
 
     ImageView img;
+    ImageView img2;
+    RelativeLayout output;
 
     Bitmap bmp;
     Bitmap alteredBitmap;
@@ -59,6 +62,7 @@ public class EditorActivity extends AppCompatActivity{
 
         img = (ImageView)findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+        img2 = (ImageView)findViewById(R.id.img2);
         btn = (Button) findViewById(R.id.btn);
 
         final RadioRealButton button1 = (RadioRealButton) findViewById(R.id.color1);
@@ -174,13 +178,13 @@ public class EditorActivity extends AppCompatActivity{
         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
 
             bmp = bitmap;
-            alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
-//            alteredBitmap = Bitmap.createBitmap(bmp);
+//            alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+            alteredBitmap = makeTransparentBitmap(bmp, 0);
             canvas = new Canvas(alteredBitmap);
-
-            canvas.drawBitmap(bmp, 0,0, paint);
+            canvas.drawBitmap(alteredBitmap, 0,0, paint);
 
             img.setImageBitmap(alteredBitmap);
+            img2.setImageBitmap(bmp);
 
 
         }
@@ -230,6 +234,16 @@ public class EditorActivity extends AppCompatActivity{
         } else {
             paint.setXfermode(null);
         }
+    }
+
+    private static Bitmap makeTransparentBitmap(Bitmap bmp, int alpha) {
+        Bitmap transBmp = Bitmap.createBitmap(bmp.getWidth(),
+                bmp.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(transBmp);
+        final Paint paint = new Paint();
+        paint.setAlpha(alpha);
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        return transBmp;
     }
 
 //    @Override
