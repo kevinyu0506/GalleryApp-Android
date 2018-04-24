@@ -90,6 +90,7 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
         Glide.with(context).load("file://" + al_menu.get(int_position).getAl_imagepath().get(position))
 //                .diskCacheStrategy(DiskCacheStrategy.NONE)
 //                .skipMemoryCache(true)
+                .centerCrop()
                 .into(viewHolder.iv_image);
 
 

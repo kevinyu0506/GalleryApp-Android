@@ -41,10 +41,10 @@ public class MyCanvasView extends View{
     public MyCanvasView(Context context, AttributeSet attributeSet) {
         super(context);
 
-        mBackgroundColor = ResourcesCompat.getColor(getResources(), R.color.opaque_orange, null);
-
-        mDrawColor = ResourcesCompat.getColor(getResources(),
-                R.color.opaque_yellow, null);
+//        mBackgroundColor = ResourcesCompat.getColor(getResources(), R.color.opaque_orange, null);
+//
+//        mDrawColor = ResourcesCompat.getColor(getResources(),
+//                R.color.opaque_yellow, null);
 
         // Holds the path we are currently drawing.
         mPath = new Path();
