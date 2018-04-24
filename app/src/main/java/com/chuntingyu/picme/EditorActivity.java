@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +36,7 @@ public class EditorActivity extends AppCompatActivity{
     int album;
     int index;
     Uri uri;
-//    Button btn;
+    Button btn;
 
     ImageView img;
 
@@ -48,13 +50,16 @@ public class EditorActivity extends AppCompatActivity{
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
 
+    private boolean erase=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
         img = (ImageView)findViewById(R.id.img);
-//        btn = (Button) findViewById(R.id.btn);
+        img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+        btn = (Button) findViewById(R.id.btn);
 
         final RadioRealButton button1 = (RadioRealButton) findViewById(R.id.color1);
         final RadioRealButton button2 = (RadioRealButton) findViewById(R.id.color2);
@@ -68,6 +73,7 @@ public class EditorActivity extends AppCompatActivity{
             public void onClickedButton(RadioRealButton button, int position) {
 
                 int id = button.getId();
+                setErase(false);
 
                 switch (id){
                     case R.id.color1:
@@ -103,12 +109,12 @@ public class EditorActivity extends AppCompatActivity{
 
         loadImageSimpleTarget();
 
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setErase(true);
+            }
+        });
 
         init();
 
@@ -216,6 +222,15 @@ public class EditorActivity extends AppCompatActivity{
                 .into(target);
     }
 
+    public void setErase(boolean isErase){
+        //set erase true or false
+        erase = isErase;
+        if(erase) {
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        } else {
+            paint.setXfermode(null);
+        }
+    }
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {

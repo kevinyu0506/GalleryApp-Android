@@ -30,6 +30,7 @@ public class PhotosActivity extends AppCompatActivity {
         gridView = (GridView)findViewById(R.id.gv_folder);
         int_position = getIntent().getIntExtra("value", 0);
         txt = (TextView)findViewById(R.id.pageTitle);
+        txt.setVisibility(View.VISIBLE);
         txt.setText(MainActivity.al_images.get(int_position).getStr_folder().toUpperCase());
 
         adapter = new GridViewAdapter(this,MainActivity.al_images,int_position);

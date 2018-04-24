@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.chuntingyu.picme.EditorActivity">
 
-    <!--<Button-->
-        <!--android:id="@+id/btn"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="CHange color"/>-->
+    <Button
+        android:id="@+id/btn"
+        android:layout_above="@id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="erase"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
