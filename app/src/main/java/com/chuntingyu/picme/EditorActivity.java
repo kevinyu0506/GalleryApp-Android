@@ -26,12 +26,15 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.yalantis.ucrop.UCrop;
 
+import co.ceryle.radiorealbutton.RadioRealButton;
+import co.ceryle.radiorealbutton.RadioRealButtonGroup;
+
 public class EditorActivity extends AppCompatActivity{
 
     int album;
     int index;
     Uri uri;
-    Button btn;
+//    Button btn;
 
     ImageView img;
 
@@ -40,6 +43,7 @@ public class EditorActivity extends AppCompatActivity{
     Canvas canvas;
     Paint paint;
     Path path;
+    RadioRealButtonGroup group;
 
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
@@ -50,7 +54,42 @@ public class EditorActivity extends AppCompatActivity{
         setContentView(R.layout.activity_editor);
 
         img = (ImageView)findViewById(R.id.img);
-        btn = (Button) findViewById(R.id.btn);
+//        btn = (Button) findViewById(R.id.btn);
+
+        final RadioRealButton button1 = (RadioRealButton) findViewById(R.id.color1);
+        final RadioRealButton button2 = (RadioRealButton) findViewById(R.id.color2);
+        final RadioRealButton button3 = (RadioRealButton) findViewById(R.id.color3);
+        final RadioRealButton button4 = (RadioRealButton) findViewById(R.id.color4);
+        final RadioRealButton button5 = (RadioRealButton) findViewById(R.id.color5);
+
+        group = (RadioRealButtonGroup)findViewById(R.id.group);
+        group.setOnClickedButtonListener(new RadioRealButtonGroup.OnClickedButtonListener() {
+            @Override
+            public void onClickedButton(RadioRealButton button, int position) {
+
+                int id = button.getId();
+
+                switch (id){
+                    case R.id.color1:
+                        paint.setColor(Color.parseColor("#ffcdd2"));
+                        break;
+                    case R.id.color2:
+                        paint.setColor(Color.parseColor("#f8bbd0"));
+                        break;
+                    case R.id.color3:
+                        paint.setColor(Color.parseColor("#e1bee7"));
+                        break;
+                    case R.id.color4:
+                        paint.setColor(Color.parseColor("#d1c4e9"));
+                        break;
+                    case R.id.color5:
+                        paint.setColor(Color.parseColor("#c5cae9"));
+                        break;
+
+                }
+            }
+        });
+
 
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
@@ -64,12 +103,12 @@ public class EditorActivity extends AppCompatActivity{
 
         loadImageSimpleTarget();
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         init();
 
