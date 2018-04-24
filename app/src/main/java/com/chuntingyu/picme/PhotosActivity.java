@@ -8,16 +8,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 /**
  * Created by deepshikha on 20/3/17.
  */
 
 public class PhotosActivity extends AppCompatActivity {
+
     int int_position;
     private GridView gridView;
     GridViewAdapter adapter;
-
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class PhotosActivity extends AppCompatActivity {
         findViewById(R.id.start).setVisibility(View.GONE);
         gridView = (GridView)findViewById(R.id.gv_folder);
         int_position = getIntent().getIntExtra("value", 0);
+        txt = (TextView)findViewById(R.id.pageTitle);
+        txt.setText(MainActivity.al_images.get(int_position).getStr_folder().toUpperCase());
+
         adapter = new GridViewAdapter(this,MainActivity.al_images,int_position);
         gridView.setAdapter(adapter);
 

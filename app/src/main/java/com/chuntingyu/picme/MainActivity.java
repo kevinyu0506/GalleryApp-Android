@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     boolean boolean_folder;
     Adapter_PhotosFolder obj_adapter;
     GridView gv_folder;
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +55,14 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
                     findViewById(R.id.start).setVisibility(View.GONE);
+                    findViewById(R.id.pageTitle).setVisibility(View.VISIBLE);
                 }
             });
         } else {
             findViewById(R.id.start).setVisibility(View.GONE);
+            txt = (TextView)findViewById(R.id.pageTitle);
+            txt.setVisibility(View.VISIBLE);
+            txt.setText("ALBUMS");
             MainActivityPermissionsDispatcher.fn_imagespathWithPermissionCheck(MainActivity.this);
         }
 
