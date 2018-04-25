@@ -125,6 +125,9 @@ public class EditorActivity extends AppCompatActivity{
         init();
 
         final FABsMenu menu = findViewById(R.id.fabs_menu);
+        menu.setMenuButtonIcon(R.drawable.ic_add_black_24dp);
+        menu.setMenuButtonColor(getResources().getColor(R.color.pink));
+        menu.setMenuButtonRippleColor(getResources().getColor(R.color.pink_pressed));
         menu.setMenuListener(new FABsMenuListener() {
             // You don't need to override all methods. Just the ones you want.
 
