@@ -16,6 +16,37 @@
         android:text="erase"
         android:visibility="invisible"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/group">
+
+        <RelativeLayout
+            android:id="@+id/output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
     <jahirfiquitiva.libs.fabsmenu.FABsMenuLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -77,37 +108,6 @@
         </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
     </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/group">
-
-        <RelativeLayout
-            android:id="@+id/output"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true">
-
-            <ImageView
-                android:id="@+id/img2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-        </RelativeLayout>
-
-    </RelativeLayout>
 
     <co.ceryle.radiorealbutton.RadioRealButtonGroup
         android:id="@+id/group"
