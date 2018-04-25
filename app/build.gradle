@@ -21,8 +21,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-v13:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v13:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -39,5 +39,7 @@ dependencies {
     compile 'com.github.yalantis:ucrop:2.2.2'
 
     compile 'com.github.ceryle:RadioRealButton:v2.1.1'
+
+    implementation 'me.jahirfiquitiva:FABsMenu:1.1.4'
 
 }

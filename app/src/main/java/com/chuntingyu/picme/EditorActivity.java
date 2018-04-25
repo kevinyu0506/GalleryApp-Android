@@ -31,6 +31,8 @@ import com.yalantis.ucrop.UCrop;
 
 import co.ceryle.radiorealbutton.RadioRealButton;
 import co.ceryle.radiorealbutton.RadioRealButtonGroup;
+import jahirfiquitiva.libs.fabsmenu.FABsMenu;
+import jahirfiquitiva.libs.fabsmenu.FABsMenuListener;
 
 public class EditorActivity extends AppCompatActivity{
 
@@ -121,6 +123,26 @@ public class EditorActivity extends AppCompatActivity{
         });
 
         init();
+
+        final FABsMenu menu = findViewById(R.id.fabs_menu);
+        menu.setMenuListener(new FABsMenuListener() {
+            // You don't need to override all methods. Just the ones you want.
+
+            @Override
+            public void onMenuClicked(FABsMenu fabsMenu) {
+                super.onMenuClicked(fabsMenu); // Default implementation opens the menu on click
+            }
+
+            @Override
+            public void onMenuCollapsed(FABsMenu fabsMenu) {
+                super.onMenuCollapsed(fabsMenu);
+            }
+
+            @Override
+            public void onMenuExpanded(FABsMenu fabsMenu) {
+                super.onMenuExpanded(fabsMenu);
+            }
+        });
 
     }
 
