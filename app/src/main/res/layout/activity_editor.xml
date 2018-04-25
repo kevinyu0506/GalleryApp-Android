@@ -62,9 +62,9 @@
             android:layout_gravity="bottom|end"
             android:clipChildren="false"
             fab:fab_menuMargins="16dp"
-            fab:fab_moreButtonPlusIcon="@drawable/ic_add_black_24dp"
-            fab:fab_moreButtonBackgroundColor="@color/pink"
-            fab:fab_moreButtonRippleColor="@color/pink_pressed"
+            fab:fab_moreButtonPlusIcon="@drawable/ic_add_white_24dp"
+            fab:fab_moreButtonBackgroundColor="@color/fabColor1"
+            fab:fab_moreButtonRippleColor="@color/fabColor1a"
             fab:fab_moreButtonSize="normal"
             fab:fab_labelsPosition="left"
             fab:fab_expandDirection="up">
@@ -74,36 +74,33 @@
                 android:id="@+id/to_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_file_download_black_24dp"
+                fab:srcCompat="@drawable/ic_file_download_white_24dp"
                 fab:fabSize="mini"
-                fab:backgroundTint="@color/fabColorAccent"
-                fab:rippleColor="@color/fabColorAccent"
-                fab:fab_title="This is a custom title"
-                fab:fab_title_backgroundColor="@color/fabColorAccent"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:backgroundTint="@color/fabColor4"
+                fab:rippleColor="@color/fabColor4a"
+                fab:fab_title="Save"/>
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/clickable_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_color_lens_black_24dp"
-                fab:fab_title="Clickable title"
+                fab:srcCompat="@drawable/ic_color_lens_white_24dp"
+                fab:fab_title="Color Palette"
                 fab:fab_enableTitleClick="true"
-                fab:fab_title_textColor="@color/blue_semi"
                 fab:fabSize="mini"
-                fab:backgroundTint="@color/blue_semi"
-                fab:rippleColor="@color/blue_semi_pressed"/>
+                fab:backgroundTint="@color/fabColor3"
+                fab:rippleColor="@color/fabColor3a"/>
 
             <!-- This item will appear just above the menu FAB -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/mini_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_create_black_24dp"
-                fab:fab_title="Mini fab with long text"
+                fab:srcCompat="@drawable/ic_create_white_24dp"
+                fab:fab_title="Painter size"
                 fab:fabSize="mini"
-                fab:backgroundTint="@color/green"
-                fab:rippleColor="@color/green_pressed"/>
+                fab:backgroundTint="@color/fabColor2"
+                fab:rippleColor="@color/fabColor2a"/>
 
         </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 

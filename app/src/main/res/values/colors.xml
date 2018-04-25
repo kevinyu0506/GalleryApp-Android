@@ -4,13 +4,12 @@
     <color name="colorPrimaryDark">#4f9a94</color>
     <color name="colorAccent">#b2fef7</color>
     <color name="black">#000000</color>
-    <color name="pink">#e91e63</color>
-    <color name="pink_pressed">#ec407a</color>
-    <color name="blue_semi">#5677fc</color>
-    <color name="blue_semi_pressed">#738ffe</color>
-    <color name="green">#4caf50</color>
-    <color name="green_pressed">#388e3c</color>
-    <color name="fabColorPrimary">#2196f3</color>
-    <color name="fabColorPrimaryDark">#197fd2</color>
-    <color name="fabColorAccent">#f44336</color>
+    <color name="fabColor1">#80cbc4</color>
+    <color name="fabColor1a">#00897b</color>
+    <color name="fabColor2">#81d4fa</color>
+    <color name="fabColor2a">#039be5</color>
+    <color name="fabColor3">#9fa8da</color>
+    <color name="fabColor3a">#3949ab</color>
+    <color name="fabColor4">#ce93d8</color>
+    <color name="fabColor4a">#8e24aa</color>
 </resources>
