@@ -153,7 +153,6 @@ public class EditorActivity extends AppCompatActivity{
 
         paint = new Paint();
         paint.setColor(Color.parseColor("#fff59d"));
-//            matrix = new Matrix();
         path = new Path();
         // Smoothes out edges of what is drawn without affecting shape.
         paint.setAntiAlias(true);
