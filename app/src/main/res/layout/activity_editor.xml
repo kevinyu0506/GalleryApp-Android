@@ -71,7 +71,7 @@
 
             <!-- This is the item that appears at the top of the menu -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/to_remove"
+                android:id="@+id/save_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:srcCompat="@drawable/ic_file_download_white_24dp"
@@ -81,7 +81,7 @@
                 fab:fab_title="Save"/>
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/clickable_title"
+                android:id="@+id/color_palette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:srcCompat="@drawable/ic_color_lens_white_24dp"
@@ -93,7 +93,7 @@
 
             <!-- This item will appear just above the menu FAB -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/mini_fab"
+                android:id="@+id/painter_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:srcCompat="@drawable/ic_create_white_24dp"

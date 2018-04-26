@@ -1,38 +1,34 @@
 package com.chuntingyu.picme;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BaseTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 
-import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.animation.GlideAnimation;
-import com.yalantis.ucrop.UCrop;
 
 import co.ceryle.radiorealbutton.RadioRealButton;
 import co.ceryle.radiorealbutton.RadioRealButtonGroup;
 import jahirfiquitiva.libs.fabsmenu.FABsMenu;
 import jahirfiquitiva.libs.fabsmenu.FABsMenuListener;
+import jahirfiquitiva.libs.fabsmenu.TitleFAB;
 
 public class EditorActivity extends AppCompatActivity{
 
@@ -52,6 +48,9 @@ public class EditorActivity extends AppCompatActivity{
     Path path;
     RadioRealButtonGroup group;
 
+    private float smallBrush, mediumBrush, largeBrush;
+    private float brushSize, lastBrushSize;
+
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
 
@@ -66,6 +65,10 @@ public class EditorActivity extends AppCompatActivity{
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
         img2 = (ImageView)findViewById(R.id.img2);
         btn = (Button) findViewById(R.id.btn);
+
+        smallBrush = getResources().getInteger(R.integer.small_size);
+        mediumBrush = getResources().getInteger(R.integer.medium_size);
+        largeBrush = getResources().getInteger(R.integer.large_size);
 
         final RadioRealButton button1 = (RadioRealButton) findViewById(R.id.color1);
         final RadioRealButton button2 = (RadioRealButton) findViewById(R.id.color2);
@@ -122,7 +125,13 @@ public class EditorActivity extends AppCompatActivity{
             }
         });
 
-        init();
+        initPaint();
+
+        initFabMenu();
+
+    }
+
+    private void initFabMenu() {
 
         final FABsMenu menu = findViewById(R.id.fabs_menu);
         menu.setMenuButtonIcon(R.drawable.ic_add_white_24dp);
@@ -133,7 +142,9 @@ public class EditorActivity extends AppCompatActivity{
 
             @Override
             public void onMenuClicked(FABsMenu fabsMenu) {
-                super.onMenuClicked(fabsMenu); // Default implementation opens the menu on click
+                super.onMenuClicked(fabsMenu);
+                // Default implementation opens the menu on click
+
             }
 
             @Override
@@ -147,9 +158,71 @@ public class EditorActivity extends AppCompatActivity{
             }
         });
 
+        TitleFAB painterSize = findViewById(R.id.painter_size);
+        painterSize.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                final Dialog painterDialog = new Dialog(EditorActivity.this);
+                painterDialog.setTitle("Painter size:");
+                painterDialog.setContentView(R.layout.painter_chooser);
+
+                ImageButton smallBtn = (ImageButton)painterDialog.findViewById(R.id.small_brush);
+                smallBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        paint.setStrokeWidth(smallBrush);
+                        painterDialog.dismiss();
+                    }
+                });
+
+                ImageButton mediumBtn = (ImageButton)painterDialog.findViewById(R.id.medium_brush);
+                mediumBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        paint.setStrokeWidth(mediumBrush);
+                        painterDialog.dismiss();
+                    }
+                });
+
+                ImageButton largeBtn = (ImageButton)painterDialog.findViewById(R.id.large_brush);
+                largeBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        paint.setStrokeWidth(largeBrush);
+                        painterDialog.dismiss();
+                    }
+                });
+
+                painterDialog.show();
+
+            }
+        });
+        TitleFAB colorPalette = findViewById(R.id.color_palette);
+        colorPalette.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        TitleFAB savePhoto = findViewById(R.id.save_photo);
+        savePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+
+
     }
 
-    private void init(){
+    private void initPaint(){
+
+        brushSize = getResources().getInteger(R.integer.medium_size);
+        lastBrushSize = brushSize;
 
         paint = new Paint();
         paint.setColor(Color.parseColor("#fff59d"));
@@ -162,7 +235,7 @@ public class EditorActivity extends AppCompatActivity{
         paint.setStyle(Paint.Style.STROKE); // default: FILL
         paint.setStrokeJoin(Paint.Join.ROUND); // default: MITER
         paint.setStrokeCap(Paint.Cap.ROUND); // default: BUTT
-        paint.setStrokeWidth(12); // default: Hairline-width (really thin)
+        paint.setStrokeWidth(brushSize); // default: Hairline-width (really thin)
 
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -258,6 +331,20 @@ public class EditorActivity extends AppCompatActivity{
         } else {
             paint.setXfermode(null);
         }
+    }
+
+    public void setBrushSize(float newSize){
+        //update size
+        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize, getResources().getDisplayMetrics());
+        brushSize = pixelAmount;
+        paint.setStrokeWidth(brushSize);
+    }
+
+    public void setLastBrushSize(float lastSize){
+        lastBrushSize=lastSize;
+    }
+    public float getLastBrushSize(){
+        return lastBrushSize;
     }
 
     private static Bitmap makeTransparentBitmap(Bitmap bmp, int alpha) {
