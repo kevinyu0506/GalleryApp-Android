@@ -24,8 +24,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 
-import co.ceryle.radiorealbutton.RadioRealButton;
-import co.ceryle.radiorealbutton.RadioRealButtonGroup;
 import jahirfiquitiva.libs.fabsmenu.FABsMenu;
 import jahirfiquitiva.libs.fabsmenu.FABsMenuListener;
 import jahirfiquitiva.libs.fabsmenu.TitleFAB;
@@ -46,7 +44,6 @@ public class EditorActivity extends AppCompatActivity{
     Canvas canvas;
     Paint paint;
     Path path;
-    RadioRealButtonGroup group;
 
     private float smallBrush, mediumBrush, largeBrush;
     private float brushSize, lastBrushSize;
@@ -69,41 +66,6 @@ public class EditorActivity extends AppCompatActivity{
         smallBrush = getResources().getInteger(R.integer.small_size);
         mediumBrush = getResources().getInteger(R.integer.medium_size);
         largeBrush = getResources().getInteger(R.integer.large_size);
-
-        final RadioRealButton button1 = (RadioRealButton) findViewById(R.id.color1);
-        final RadioRealButton button2 = (RadioRealButton) findViewById(R.id.color2);
-        final RadioRealButton button3 = (RadioRealButton) findViewById(R.id.color3);
-        final RadioRealButton button4 = (RadioRealButton) findViewById(R.id.color4);
-        final RadioRealButton button5 = (RadioRealButton) findViewById(R.id.color5);
-
-        group = (RadioRealButtonGroup)findViewById(R.id.group);
-        group.setOnClickedButtonListener(new RadioRealButtonGroup.OnClickedButtonListener() {
-            @Override
-            public void onClickedButton(RadioRealButton button, int position) {
-
-                int id = button.getId();
-                setErase(false);
-
-                switch (id){
-                    case R.id.color1:
-                        paint.setColor(Color.parseColor("#fff59d"));
-                        break;
-                    case R.id.color2:
-                        paint.setColor(Color.parseColor("#e6ee9c"));
-                        break;
-                    case R.id.color3:
-                        paint.setColor(Color.parseColor("#c5e1a5"));
-                        break;
-                    case R.id.color4:
-                        paint.setColor(Color.parseColor("#a5d6a7"));
-                        break;
-                    case R.id.color5:
-                        paint.setColor(Color.parseColor("#80cbc4"));
-                        break;
-
-                }
-            }
-        });
 
 
         album = getIntent().getIntExtra("album", 0);
@@ -173,6 +135,7 @@ public class EditorActivity extends AppCompatActivity{
                     public void onClick(View v) {
                         paint.setStrokeWidth(smallBrush);
                         painterDialog.dismiss();
+                        menu.collapse();
                     }
                 });
 
@@ -182,6 +145,7 @@ public class EditorActivity extends AppCompatActivity{
                     public void onClick(View v) {
                         paint.setStrokeWidth(mediumBrush);
                         painterDialog.dismiss();
+                        menu.collapse();
                     }
                 });
 
@@ -191,6 +155,7 @@ public class EditorActivity extends AppCompatActivity{
                     public void onClick(View v) {
                         paint.setStrokeWidth(largeBrush);
                         painterDialog.dismiss();
+                        menu.collapse();
                     }
                 });
 
@@ -202,6 +167,78 @@ public class EditorActivity extends AppCompatActivity{
         colorPalette.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final Dialog colorDialog = new Dialog(EditorActivity.this);
+                colorDialog.setTitle("Painter color:");
+                colorDialog.setContentView(R.layout.color_chooser);
+
+                ImageButton color1Btn = (ImageButton)colorDialog.findViewById(R.id.color_1);
+                color1Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor1));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                ImageButton color2Btn = (ImageButton)colorDialog.findViewById(R.id.color_2);
+                color2Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor2));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                ImageButton color3Btn = (ImageButton)colorDialog.findViewById(R.id.color_3);
+                color3Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor3));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                ImageButton color4Btn = (ImageButton)colorDialog.findViewById(R.id.color_4);
+                color4Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor4));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                ImageButton color5Btn = (ImageButton)colorDialog.findViewById(R.id.color_5);
+                color5Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor5));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                ImageButton color6Btn = (ImageButton)colorDialog.findViewById(R.id.color_6);
+                color6Btn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        setErase(false);
+                        paint.setColor(getResources().getColor(R.color.painterColor6));
+                        colorDialog.dismiss();
+                        menu.collapse();
+                    }
+                });
+
+                colorDialog.show();
 
             }
         });

@@ -38,7 +38,7 @@ dependencies {
 
     compile 'com.github.yalantis:ucrop:2.2.2'
 
-    compile 'com.github.ceryle:RadioRealButton:v2.1.1'
+//    compile 'com.github.ceryle:RadioRealButton:v2.1.1'
 
     implementation 'me.jahirfiquitiva:FABsMenu:1.1.4'
 

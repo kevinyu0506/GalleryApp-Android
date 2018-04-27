@@ -12,4 +12,10 @@
     <color name="fabColor3a">#3949ab</color>
     <color name="fabColor4">#ce93d8</color>
     <color name="fabColor4a">#8e24aa</color>
+    <color name="painterColor1">#fff59d</color>
+    <color name="painterColor2">#e6ee9c</color>
+    <color name="painterColor3">#c5e1a5</color>
+    <color name="painterColor4">#a5d6a7</color>
+    <color name="painterColor5">#80cbc4</color>
+    <color name="painterColor6">#80deea</color>
 </resources>
