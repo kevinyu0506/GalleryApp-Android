@@ -406,19 +406,19 @@ public class EditorActivity extends AppCompatActivity{
         }
     }
 
-    public void setBrushSize(float newSize){
-        //update size
-        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize, getResources().getDisplayMetrics());
-        brushSize = pixelAmount;
-        paint.setStrokeWidth(brushSize);
-    }
-
-    public void setLastBrushSize(float lastSize){
-        lastBrushSize=lastSize;
-    }
-    public float getLastBrushSize(){
-        return lastBrushSize;
-    }
+//    public void setBrushSize(float newSize){
+//        //update size
+//        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize, getResources().getDisplayMetrics());
+//        brushSize = pixelAmount;
+//        paint.setStrokeWidth(brushSize);
+//    }
+//
+//    public void setLastBrushSize(float lastSize){
+//        lastBrushSize=lastSize;
+//    }
+//    public float getLastBrushSize(){
+//        return lastBrushSize;
+//    }
 
     private static Bitmap makeTransparentBitmap(Bitmap bmp, int alpha) {
         Bitmap transBmp = Bitmap.createBitmap(bmp.getWidth(),
