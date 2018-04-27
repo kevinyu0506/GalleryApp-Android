@@ -1,6 +1,7 @@
 package com.chuntingyu.picme;
 
 import android.app.Dialog;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -33,7 +35,6 @@ public class EditorActivity extends AppCompatActivity{
     int album;
     int index;
     Uri uri;
-    Button btn;
 
     ImageView img;
     ImageView img2;
@@ -44,6 +45,8 @@ public class EditorActivity extends AppCompatActivity{
     Canvas canvas;
     Paint paint;
     Path path;
+
+    FloatingActionButton statusBtn;
 
     private float smallBrush, mediumBrush, largeBrush;
     private float brushSize, lastBrushSize;
@@ -61,7 +64,19 @@ public class EditorActivity extends AppCompatActivity{
         img = (ImageView)findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
         img2 = (ImageView)findViewById(R.id.img2);
-        btn = (Button) findViewById(R.id.btn);
+        statusBtn = (FloatingActionButton)findViewById(R.id.currentStatus);
+
+        statusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (erase) {
+                    setErase(false);
+                }
+                else {
+                    setErase(true);
+                }
+            }
+        });
 
         smallBrush = getResources().getInteger(R.integer.small_size);
         mediumBrush = getResources().getInteger(R.integer.medium_size);
@@ -80,13 +95,6 @@ public class EditorActivity extends AppCompatActivity{
 
         loadImageSimpleTarget();
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setErase(true);
-            }
-        });
-
         initPaint();
 
         initFabMenu();
@@ -96,7 +104,7 @@ public class EditorActivity extends AppCompatActivity{
     private void initFabMenu() {
 
         final FABsMenu menu = findViewById(R.id.fabs_menu);
-        menu.setMenuButtonIcon(R.drawable.ic_add_white_24dp);
+        menu.setMenuButtonIcon(R.drawable.ic_brush_white_24dp);
         menu.setMenuButtonColor(getResources().getColor(R.color.fabColor1));
         menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabColor1a));
         menu.setMenuListener(new FABsMenuListener() {
@@ -242,11 +250,21 @@ public class EditorActivity extends AppCompatActivity{
 
             }
         });
+
         TitleFAB savePhoto = findViewById(R.id.save_photo);
         savePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        TitleFAB eraseBtn = findViewById(R.id.to_erase);
+        eraseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setErase(true);
+                menu.collapse();
             }
         });
 
@@ -365,8 +383,26 @@ public class EditorActivity extends AppCompatActivity{
         erase = isErase;
         if(erase) {
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+            final FABsMenu menu = findViewById(R.id.fabs_menu);
+            menu.setMenuButtonIcon(R.drawable.ic_eraser_variant_white_24dp);
+            menu.setMenuButtonColor(getResources().getColor(R.color.fabEraser));
+            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabEraser));
+
+            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_brush_white_24dp));
+            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabColor1))));
+
         } else {
             paint.setXfermode(null);
+
+            final FABsMenu menu = findViewById(R.id.fabs_menu);
+            menu.setMenuButtonIcon(R.drawable.ic_brush_white_24dp);
+            menu.setMenuButtonColor(getResources().getColor(R.color.fabColor1));
+            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabColor1a));
+
+            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_eraser_variant_white_24dp));
+            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabEraser))));
+
         }
     }
 

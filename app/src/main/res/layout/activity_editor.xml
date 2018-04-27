@@ -8,16 +8,6 @@
     android:background="#e8f5e9"
     tools:context="com.chuntingyu.picme.EditorActivity">
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="12dp"
-        android:text="erase"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
@@ -63,7 +53,7 @@
             android:layout_gravity="bottom|end"
             android:clipChildren="false"
             fab:fab_menuMargins="16dp"
-            fab:fab_moreButtonPlusIcon="@drawable/ic_add_white_24dp"
+            fab:fab_moreButtonPlusIcon="@drawable/ic_brush_white_24dp"
             fab:fab_moreButtonBackgroundColor="@color/fabColor1"
             fab:fab_moreButtonRippleColor="@color/fabColor1a"
             fab:fab_moreButtonSize="normal"
@@ -71,6 +61,18 @@
             fab:fab_expandDirection="up">
 
             <!-- This is the item that appears at the top of the menu -->
+            <jahirfiquitiva.libs.fabsmenu.TitleFAB
+                android:id="@+id/to_erase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:srcCompat="@drawable/ic_eraser_variant_white_24dp"
+                fab:fabSize="mini"
+                fab:backgroundTint="@color/fabEraser"
+                fab:rippleColor="@color/fabEraser"
+                fab:fab_title="Eraser"
+                fab:fab_title_backgroundColor="@color/fabEraser"
+                fab:fab_title_textColor="@android:color/white"/>
+
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/save_photo"
                 android:layout_width="wrap_content"
@@ -106,5 +108,15 @@
         </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
     </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/currentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_eraser_variant_white_24dp"
+        app:backgroundTint="@color/fabEraser"
+        app:fabSize="normal"/>
 
 </android.widget.RelativeLayout>
