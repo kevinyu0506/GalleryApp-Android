@@ -62,18 +62,6 @@
 
             <!-- This is the item that appears at the top of the menu -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/to_erase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_eraser_variant_white_24dp"
-                fab:fabSize="mini"
-                fab:backgroundTint="@color/fabEraser"
-                fab:rippleColor="@color/fabEraser"
-                fab:fab_title="Eraser"
-                fab:fab_title_backgroundColor="@color/fabEraser"
-                fab:fab_title_textColor="@android:color/white"/>
-
-            <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/save_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +69,21 @@
                 fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor4"
                 fab:rippleColor="@color/fabColor4a"
-                fab:fab_title="Save"/>
+                fab:fab_title="Save"
+                fab:fab_title_backgroundColor="@color/fabColor4"
+                fab:fab_title_textColor="@android:color/white"/>
+
+            <jahirfiquitiva.libs.fabsmenu.TitleFAB
+                android:id="@+id/text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:srcCompat="@drawable/ic_text_fields_white_24dp"
+                fab:fabSize="mini"
+                fab:backgroundTint="@color/fabColor5"
+                fab:rippleColor="@color/fabColor5a"
+                fab:fab_title="Text Field"
+                fab:fab_title_backgroundColor="@color/fabColor5"
+                fab:fab_title_textColor="@android:color/white"/>
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/color_palette"
@@ -89,10 +91,11 @@
                 android:layout_height="wrap_content"
                 fab:srcCompat="@drawable/ic_color_lens_white_24dp"
                 fab:fab_title="Color Palette"
-                fab:fab_enableTitleClick="true"
                 fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor3"
-                fab:rippleColor="@color/fabColor3a"/>
+                fab:rippleColor="@color/fabColor3a"
+                fab:fab_title_backgroundColor="@color/fabColor3"
+                fab:fab_title_textColor="@android:color/white"/>
 
             <!-- This item will appear just above the menu FAB -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
@@ -103,20 +106,23 @@
                 fab:fab_title="Painter size"
                 fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor2"
-                fab:rippleColor="@color/fabColor2a"/>
+                fab:rippleColor="@color/fabColor2a"
+                fab:fab_title_backgroundColor="@color/fabColor2"
+                fab:fab_title_textColor="@android:color/white"/>
 
         </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
     </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/currentStatus"
+        android:id="@+id/eraseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="15dp"
         android:src="@drawable/ic_eraser_variant_white_24dp"
         app:backgroundTint="@color/fabEraser"
-        app:fabSize="normal"/>
+        app:fabSize="normal"
+        app:rippleColor="@color/fabEraserRipple"/>
 
 </android.widget.RelativeLayout>

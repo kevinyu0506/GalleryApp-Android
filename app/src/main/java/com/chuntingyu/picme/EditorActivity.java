@@ -1,6 +1,8 @@
 package com.chuntingyu.picme;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,6 +12,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +28,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
+
+import java.util.UUID;
 
 import jahirfiquitiva.libs.fabsmenu.FABsMenu;
 import jahirfiquitiva.libs.fabsmenu.FABsMenuListener;
@@ -46,7 +51,7 @@ public class EditorActivity extends AppCompatActivity{
     Paint paint;
     Path path;
 
-    FloatingActionButton statusBtn;
+    FloatingActionButton eraseBtn;
 
     private float smallBrush, mediumBrush, largeBrush;
     private float brushSize, lastBrushSize;
@@ -64,9 +69,10 @@ public class EditorActivity extends AppCompatActivity{
         img = (ImageView)findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
         img2 = (ImageView)findViewById(R.id.img2);
-        statusBtn = (FloatingActionButton)findViewById(R.id.currentStatus);
+        eraseBtn = (FloatingActionButton)findViewById(R.id.eraseBtn);
+        output = (RelativeLayout)findViewById(R.id.output);
 
-        statusBtn.setOnClickListener(new View.OnClickListener() {
+        eraseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (erase) {
@@ -114,7 +120,7 @@ public class EditorActivity extends AppCompatActivity{
             public void onMenuClicked(FABsMenu fabsMenu) {
                 super.onMenuClicked(fabsMenu);
                 // Default implementation opens the menu on click
-
+                setErase(false);
             }
 
             @Override
@@ -256,11 +262,36 @@ public class EditorActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
+                AlertDialog.Builder saveDialog = new AlertDialog.Builder(EditorActivity.this);
+                saveDialog.setTitle("Save drawing");
+                saveDialog.setMessage("Save drawing to device Gallery?");
+                saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+
+                        //save drawing
+                        output.setDrawingCacheEnabled(true);
+                        String imgSaved = MediaStore.Images.Media.insertImage(
+                                getContentResolver(), output.getDrawingCache(),
+                                UUID.randomUUID().toString()+".png", "drawing");
+
+                        output.destroyDrawingCache();
+
+                    }
+                });
+                saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.cancel();
+                    }
+                });
+                saveDialog.show();
+
+
+
             }
         });
 
-        TitleFAB eraseBtn = findViewById(R.id.to_erase);
-        eraseBtn.setOnClickListener(new View.OnClickListener() {
+        TitleFAB textBtn = findViewById(R.id.text_field);
+        textBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setErase(true);
@@ -384,24 +415,24 @@ public class EditorActivity extends AppCompatActivity{
         if(erase) {
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
-            final FABsMenu menu = findViewById(R.id.fabs_menu);
-            menu.setMenuButtonIcon(R.drawable.ic_eraser_variant_white_24dp);
-            menu.setMenuButtonColor(getResources().getColor(R.color.fabEraser));
-            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabEraser));
+//            final FABsMenu menu = findViewById(R.id.fabs_menu);
+//            menu.setMenuButtonIcon(R.drawable.ic_eraser_variant_white_24dp);
+//            menu.setMenuButtonColor(getResources().getColor(R.color.fabEraser));
+//            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabEraser));
 
-            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_brush_white_24dp));
-            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabColor1))));
+//            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_brush_white_24dp));
+//            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabColor1))));
 
         } else {
             paint.setXfermode(null);
 
-            final FABsMenu menu = findViewById(R.id.fabs_menu);
-            menu.setMenuButtonIcon(R.drawable.ic_brush_white_24dp);
-            menu.setMenuButtonColor(getResources().getColor(R.color.fabColor1));
-            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabColor1a));
+//            final FABsMenu menu = findViewById(R.id.fabs_menu);
+//            menu.setMenuButtonIcon(R.drawable.ic_brush_white_24dp);
+//            menu.setMenuButtonColor(getResources().getColor(R.color.fabColor1));
+//            menu.setMenuButtonRippleColor(getResources().getColor(R.color.fabColor1a));
 
-            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_eraser_variant_white_24dp));
-            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabEraser))));
+//            statusBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_eraser_variant_white_24dp));
+//            statusBtn.setBackgroundTintList(ColorStateList.valueOf((getResources().getColor(R.color.fabEraser))));
 
         }
     }
