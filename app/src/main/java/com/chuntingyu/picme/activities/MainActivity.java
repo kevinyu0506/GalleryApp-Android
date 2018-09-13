@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener imageClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(getApplicationContext(), PhotosActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
             intent.putExtra("value", i);
             startActivity(intent);
         }
@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         imagePaths.clear();
 
         int position = 0;
+        int column_index_data, column_index_folder_name;
         Uri uri;
         Cursor cursor;
-        int column_index_data, column_index_folder_name;
 
         String absolutePathOfImage = null;
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;

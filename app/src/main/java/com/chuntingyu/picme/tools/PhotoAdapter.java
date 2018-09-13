@@ -19,26 +19,23 @@ import com.chuntingyu.picme.models.ImageModel;
 import java.util.ArrayList;
 
 
-public class GridViewAdapter extends ArrayAdapter<ImageModel> {
+public class PhotoAdapter extends ArrayAdapter<ImageModel> {
 
-    Context context;
-    ViewHolder viewHolder;
-    ArrayList<ImageModel> al_menu = new ArrayList<>();
-    int int_position;
+    private Context context;
+    private ViewHolder viewHolder;
+    private ArrayList<ImageModel> al_menu;
+    private int int_position;
 
-    public GridViewAdapter(Context context, ArrayList<ImageModel> al_menu, int int_position) {
+    public PhotoAdapter(Context context, ArrayList<ImageModel> al_menu, int int_position) {
         super(context, R.layout.adapter_photosfolder, al_menu);
 
         this.al_menu = al_menu;
         this.context = context;
         this.int_position = int_position;
-
-
     }
 
     @Override
     public int getCount() {
-
         Log.e("ADAPTER LIST SIZE", al_menu.get(int_position).getImagePaths().size() + "");
         return al_menu.get(int_position).getImagePaths().size();
     }
@@ -64,44 +61,33 @@ public class GridViewAdapter extends ArrayAdapter<ImageModel> {
 
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
 
-        if (convertView == null) {
-
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.adapter_photosfolder, parent, false);
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_photosfolder, parent, false);
-            viewHolder.tv_foldern = (TextView) convertView.findViewById(R.id.folder_name_text);
-            viewHolder.tv_foldersize = (TextView) convertView.findViewById(R.id.folder_count_text);
-            viewHolder.iv_image = (ImageView) convertView.findViewById(R.id.folder_displayed_image);
-
-
-            convertView.setTag(viewHolder);
+            viewHolder.folderName = view.findViewById(R.id.folder_name_text);
+            viewHolder.folderSize = view.findViewById(R.id.folder_count_text);
+            viewHolder.image = view.findViewById(R.id.folder_displayed_image);
+            view.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) view.getTag();
         }
 
-        viewHolder.tv_foldern.setVisibility(View.GONE);
-        viewHolder.tv_foldersize.setVisibility(View.GONE);
-
-
+        viewHolder.folderName.setVisibility(View.GONE);
+        viewHolder.folderSize.setVisibility(View.GONE);
 
         Glide.with(context).load("file://" + al_menu.get(int_position).getImagePaths().get(position))
 //                .diskCacheStrategy(DiskCacheStrategy.NONE)
 //                .skipMemoryCache(true)
                 .centerCrop()
-                .into(viewHolder.iv_image);
+                .into(viewHolder.image);
 
-
-        return convertView;
-
+        return view;
     }
 
     private static class ViewHolder {
-        TextView tv_foldern, tv_foldersize;
-        ImageView iv_image;
-
-
+        TextView folderName, folderSize;
+        ImageView image;
     }
-
-
 }
