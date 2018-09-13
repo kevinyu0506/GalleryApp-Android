@@ -1,4 +1,4 @@
-package com.chuntingyu.picme; /**
+package com.chuntingyu.picme.tools; /**
  * Created by Kevin on 2018/4/20.
  */
 
@@ -12,24 +12,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.chuntingyu.picme.Model_images;
 import com.chuntingyu.picme.R;
+import com.chuntingyu.picme.models.ImageModel;
+
 
 import java.util.ArrayList;
 
 
-public class Adapter_PhotosFolder extends ArrayAdapter<Model_images> {
+public class GridViewAdapter extends ArrayAdapter<ImageModel> {
 
     Context context;
     ViewHolder viewHolder;
-    ArrayList<Model_images> al_menu = new ArrayList<>();
+    ArrayList<ImageModel> al_menu = new ArrayList<>();
+    int int_position;
 
-
-    public Adapter_PhotosFolder(Context context, ArrayList<Model_images> al_menu) {
+    public GridViewAdapter(Context context, ArrayList<ImageModel> al_menu, int int_position) {
         super(context, R.layout.adapter_photosfolder, al_menu);
+
         this.al_menu = al_menu;
         this.context = context;
+        this.int_position = int_position;
 
 
     }
@@ -37,8 +39,8 @@ public class Adapter_PhotosFolder extends ArrayAdapter<Model_images> {
     @Override
     public int getCount() {
 
-        Log.e("ADAPTER LIST SIZE", al_menu.size() + "");
-        return al_menu.size();
+        Log.e("ADAPTER LIST SIZE", al_menu.get(int_position).getImagePaths().size() + "");
+        return al_menu.get(int_position).getImagePaths().size();
     }
 
     @Override
@@ -48,8 +50,8 @@ public class Adapter_PhotosFolder extends ArrayAdapter<Model_images> {
 
     @Override
     public int getViewTypeCount() {
-        if (al_menu.size() > 0) {
-            return al_menu.size();
+        if (al_menu.get(int_position).getImagePaths().size() > 0) {
+            return al_menu.get(int_position).getImagePaths().size();
         } else {
             return 1;
         }
@@ -68,9 +70,9 @@ public class Adapter_PhotosFolder extends ArrayAdapter<Model_images> {
 
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_photosfolder, parent, false);
-            viewHolder.tv_foldern = (TextView) convertView.findViewById(R.id.tv_folder);
-            viewHolder.tv_foldersize = (TextView) convertView.findViewById(R.id.tv_folder2);
-            viewHolder.iv_image = (ImageView) convertView.findViewById(R.id.iv_image);
+            viewHolder.tv_foldern = (TextView) convertView.findViewById(R.id.folder_name_text);
+            viewHolder.tv_foldersize = (TextView) convertView.findViewById(R.id.folder_count_text);
+            viewHolder.iv_image = (ImageView) convertView.findViewById(R.id.folder_displayed_image);
 
 
             convertView.setTag(viewHolder);
@@ -78,12 +80,12 @@ public class Adapter_PhotosFolder extends ArrayAdapter<Model_images> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tv_foldern.setText(al_menu.get(position).getStr_folder());
-        viewHolder.tv_foldersize.setText(al_menu.get(position).getAl_imagepath().size()+"");
+        viewHolder.tv_foldern.setVisibility(View.GONE);
+        viewHolder.tv_foldersize.setVisibility(View.GONE);
 
 
 
-        Glide.with(context).load("file://" + al_menu.get(position).getAl_imagepath().get(0))
+        Glide.with(context).load("file://" + al_menu.get(int_position).getImagePaths().get(position))
 //                .diskCacheStrategy(DiskCacheStrategy.NONE)
 //                .skipMemoryCache(true)
                 .centerCrop()

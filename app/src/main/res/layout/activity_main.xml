@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chuntingyu.picme.MainActivity">
+    tools:context="com.chuntingyu.picme.activities.MainActivity">
 
     <TextView
-        android:id="@+id/pageTitle"
+        android:id="@+id/main_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="ALBUMS"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:textColor="#757575"
         android:paddingTop="16dp"
-        android:visibility="invisible"
-        />
+        android:text="ALBUMS"
+        android:textColor="#757575"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <Button
-        android:id="@+id/start"
-        android:text="START"
+        android:id="@+id/start_btn_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="#00ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="START" />
 
     <GridView
-        android:layout_below="@id/pageTitle"
+        android:id="@+id/main_gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gv_folder"
-        android:numColumns="2"
+        android:layout_below="@id/main_title_text"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"></GridView>
+        android:layout_marginRight="10dp"
+        android:numColumns="2" />
 
 </android.widget.RelativeLayout>

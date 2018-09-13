@@ -1,14 +1,15 @@
-package com.chuntingyu.picme;
+package com.chuntingyu.picme.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import com.chuntingyu.picme.tools.GridViewAdapter;
+import com.chuntingyu.picme.R;
 
 /**
  * Created by deepshikha on 20/3/17.
@@ -26,14 +27,14 @@ public class PhotosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.start).setVisibility(View.GONE);
-        gridView = (GridView)findViewById(R.id.gv_folder);
+        findViewById(R.id.start_btn_text).setVisibility(View.GONE);
+        gridView = (GridView)findViewById(R.id.main_gridView);
         int_position = getIntent().getIntExtra("value", 0);
-        txt = (TextView)findViewById(R.id.pageTitle);
+        txt = (TextView)findViewById(R.id.main_title_text);
         txt.setVisibility(View.VISIBLE);
-        txt.setText(MainActivity.al_images.get(int_position).getStr_folder().toUpperCase());
+        txt.setText(MainActivity.imagePaths.get(int_position).getFolderString().toUpperCase());
 
-        adapter = new GridViewAdapter(this,MainActivity.al_images,int_position);
+        adapter = new GridViewAdapter(this, MainActivity.imagePaths,int_position);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

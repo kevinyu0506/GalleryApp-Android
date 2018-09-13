@@ -1,9 +1,8 @@
-package com.chuntingyu.picme;
+package com.chuntingyu.picme.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,10 +15,8 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -28,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
+import com.chuntingyu.picme.R;
 
 import java.util.UUID;
 
@@ -61,6 +59,8 @@ public class EditorActivity extends AppCompatActivity{
 
     private boolean erase=false;
 
+//    private ArrayList<Path> paths = new ArrayList<Path>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +92,7 @@ public class EditorActivity extends AppCompatActivity{
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
 
-        uri = Uri.parse("file://" + MainActivity.al_images.get(album).getAl_imagepath().get(index));
+        uri = Uri.parse("file://" + MainActivity.imagePaths.get(album).getImagePaths().get(index));
 
 //        UCrop.of(uri, uri)
 ////                .withAspectRatio(16, 9)
@@ -299,6 +299,17 @@ public class EditorActivity extends AppCompatActivity{
             }
         });
 
+        TitleFAB undoBtn = findViewById(R.id.undo);
+        undoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                undoDrawing();
+                img.invalidate();
+
+                menu.collapse();
+            }
+        });
 
 
 
@@ -375,6 +386,7 @@ public class EditorActivity extends AppCompatActivity{
     };
 
     private void touchStart(float x, float y) {
+//        paths.clear();
         path.moveTo(x, y);
         mX = x;
         mY = y;
@@ -392,13 +404,40 @@ public class EditorActivity extends AppCompatActivity{
             mY = y;
             // Save the path in the extra bitmap,
             // which we access through its canvas.
+
+//            paths.add(path);
+
+//            for (Path p : paths) {
+//                canvas.drawPath(p, paint);
+//            }
+
             canvas.drawPath(path, paint);
         }
     }
 
     private void touchUp() {
         // Reset the path so it doesn't get drawn again.
+//        paths.add(path);
         path.reset();
+    }
+
+    private void undoDrawing() {
+
+        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//        img.invalidate();
+
+//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+//        paint.setColor(getResources().getColor(R.color.black));
+//        for (Path p : paths) {
+//            canvas.drawPath(p, paint);
+//            img.invalidate();
+//        }
+//        canvas.drawPath(paths.get(paths.size()-1),paint);
+//        img.invalidate();
+//
+//        paths.clear();
+//        paint.setXfermode(null);
+
     }
 
 

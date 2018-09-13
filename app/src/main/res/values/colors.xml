@@ -19,6 +19,9 @@
     <color name="fabColor5">#f44336</color>
     <color name="fabColor5a">#b71c1c</color>
     <color name="fabColor5b">#ff7961</color>
+    <color name="fabColor6">#2e7d32</color>
+    <color name="fabColor6a">#005005</color>
+    <color name="fabColor6b">#60ad5e</color>
     <color name="fabEraser">#f44336</color>
     <color name="fabEraserRipple">#b71c1c</color>
     <color name="painterColor1">#fff59d</color>
