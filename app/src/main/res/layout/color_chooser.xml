@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="3dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="@color/painterColor1"/>
+                android:background="@color/painterColor1" />
 
         </LinearLayout>
 
@@ -37,8 +37,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="@color/painterColor2"
-                />
+                android:background="@color/painterColor2" />
 
         </LinearLayout>
 
@@ -53,8 +52,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:background="@color/painterColor3"
-                />
+                android:background="@color/painterColor3" />
 
         </LinearLayout>
 
@@ -63,8 +61,8 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="3dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -72,12 +70,12 @@
             android:layout_weight="1"
             android:padding="3dp">
 
-        <ImageButton
-            android:id="@+id/color_4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@color/painterColor4"/>
+            <ImageButton
+                android:id="@+id/color_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@color/painterColor4" />
 
         </LinearLayout>
 
@@ -87,12 +85,12 @@
             android:layout_weight="1"
             android:padding="3dp">
 
-        <ImageButton
-            android:id="@+id/color_5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@color/painterColor5" />
+            <ImageButton
+                android:id="@+id/color_5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@color/painterColor5" />
 
         </LinearLayout>
 
@@ -102,12 +100,12 @@
             android:layout_weight="1"
             android:padding="3dp">
 
-        <ImageButton
-            android:id="@+id/color_6"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@color/painterColor6"/>
+            <ImageButton
+                android:id="@+id/color_6"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@color/painterColor6" />
 
         </LinearLayout>
 

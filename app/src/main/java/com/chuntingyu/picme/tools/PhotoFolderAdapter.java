@@ -1,4 +1,5 @@
-package com.chuntingyu.picme.tools; /**
+package com.chuntingyu.picme.tools;
+/**
  * Created by Kevin on 2018/4/20.
  */
 
@@ -16,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.chuntingyu.picme.R;
 import com.chuntingyu.picme.models.ImageModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +26,7 @@ public class PhotoFolderAdapter extends ArrayAdapter<ImageModel> {
     private ViewHolder viewHolder;
     private List<ImageModel> insidePhotos;
 
-    public PhotoFolderAdapter(Context context, ArrayList<ImageModel> insidePhotos) {
+    public PhotoFolderAdapter(Context context, List<ImageModel> insidePhotos) {
         super(context, R.layout.adapter_photosfolder, insidePhotos);
         this.context = context;
         this.insidePhotos = insidePhotos;

@@ -16,22 +16,22 @@
             android:id="@+id/output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="15dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true">
+            android:layout_marginTop="30dp">
 
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
 
         </RelativeLayout>
@@ -41,8 +41,8 @@
     <jahirfiquitiva.libs.fabsmenu.FABsMenuLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        fab:fabs_menu_overlayColor="#4d000000"
         fab:fabs_menu_clickableOverlay="true"
+        fab:fabs_menu_overlayColor="#4d000000"
         tools:layout_behavior="@string/fabs_menu_layout_behavior">
 
         <!-- FABs Menu is the main view. It will contain all the items FABs and it create the menu fab itself -->
@@ -52,75 +52,75 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:clipChildren="false"
-            fab:fab_menuMargins="16dp"
-            fab:fab_moreButtonPlusIcon="@drawable/ic_brush_white_24dp"
-            fab:fab_moreButtonBackgroundColor="@color/fabColor1"
-            fab:fab_moreButtonRippleColor="@color/fabColor1a"
-            fab:fab_moreButtonSize="normal"
+            fab:fab_expandDirection="up"
             fab:fab_labelsPosition="left"
-            fab:fab_expandDirection="up">
+            fab:fab_menuMargins="16dp"
+            fab:fab_moreButtonBackgroundColor="@color/fabColor1"
+            fab:fab_moreButtonPlusIcon="@drawable/ic_brush_white_24dp"
+            fab:fab_moreButtonRippleColor="@color/fabColor1a"
+            fab:fab_moreButtonSize="normal">
 
             <!-- This is the item that appears at the top of the menu -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_undo_white_24dp"
-                fab:fabSize="normal"
                 fab:backgroundTint="@color/fabColor6"
-                fab:rippleColor="@color/fabColor6a"
+                fab:fabSize="normal"
                 fab:fab_title="Undo"
                 fab:fab_title_backgroundColor="@color/fabColor6"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:fab_title_textColor="@android:color/white"
+                fab:rippleColor="@color/fabColor6a"
+                fab:srcCompat="@drawable/ic_undo_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/save_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_file_download_white_24dp"
-                fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor4"
-                fab:rippleColor="@color/fabColor4a"
+                fab:fabSize="mini"
                 fab:fab_title="Save"
                 fab:fab_title_backgroundColor="@color/fabColor4"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:fab_title_textColor="@android:color/white"
+                fab:rippleColor="@color/fabColor4a"
+                fab:srcCompat="@drawable/ic_file_download_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_text_fields_white_24dp"
-                fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor5"
-                fab:rippleColor="@color/fabColor5a"
+                fab:fabSize="mini"
                 fab:fab_title="Text Field"
                 fab:fab_title_backgroundColor="@color/fabColor5"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:fab_title_textColor="@android:color/white"
+                fab:rippleColor="@color/fabColor5a"
+                fab:srcCompat="@drawable/ic_text_fields_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/color_palette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_color_lens_white_24dp"
-                fab:fab_title="Color Palette"
-                fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor3"
-                fab:rippleColor="@color/fabColor3a"
+                fab:fabSize="mini"
+                fab:fab_title="Color Palette"
                 fab:fab_title_backgroundColor="@color/fabColor3"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:fab_title_textColor="@android:color/white"
+                fab:rippleColor="@color/fabColor3a"
+                fab:srcCompat="@drawable/ic_color_lens_white_24dp" />
 
             <!-- This item will appear just above the menu FAB -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
                 android:id="@+id/painter_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:srcCompat="@drawable/ic_create_white_24dp"
-                fab:fab_title="Painter size"
-                fab:fabSize="mini"
                 fab:backgroundTint="@color/fabColor2"
-                fab:rippleColor="@color/fabColor2a"
+                fab:fabSize="mini"
+                fab:fab_title="Painter size"
                 fab:fab_title_backgroundColor="@color/fabColor2"
-                fab:fab_title_textColor="@android:color/white"/>
+                fab:fab_title_textColor="@android:color/white"
+                fab:rippleColor="@color/fabColor2a"
+                fab:srcCompat="@drawable/ic_create_white_24dp" />
 
         </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
@@ -135,6 +135,6 @@
         android:src="@drawable/ic_eraser_variant_white_24dp"
         app:backgroundTint="@color/fabEraser"
         app:fabSize="normal"
-        app:rippleColor="@color/fabEraserRipple"/>
+        app:rippleColor="@color/fabEraserRipple" />
 
 </android.widget.RelativeLayout>
