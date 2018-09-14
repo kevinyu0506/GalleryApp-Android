@@ -138,6 +138,16 @@ public class AlbumActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // NOTE: delegate the permission handling to generated method
         AlbumActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            startBtn.setVisibility(View.VISIBLE);
+            pageTitle.setVisibility(View.GONE);
+            startBtn.setOnClickListener(startClickListener);
+        } else {
+            startBtn.setVisibility(View.GONE);
+            pageTitle.setVisibility(View.VISIBLE);
+            pageTitle.setText("ALBUMS");
+        }
     }
 
     private View.OnClickListener startClickListener = new View.OnClickListener() {
