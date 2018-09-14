@@ -18,16 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chuntingyu.picme.tools.KYMath;
-import com.chuntingyu.picme.tools.PhotoFolderAdapter;
 import com.chuntingyu.picme.R;
-import com.chuntingyu.picme.models.ImageModel;
+import com.chuntingyu.picme.models.AlbumModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +34,11 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends AppCompatActivity {
-
-    public static List<ImageModel> imagePaths = new ArrayList<>();
+public class AlbumActivity extends AppCompatActivity {
+    public static List<AlbumModel> imagePaths = new ArrayList<>();
     boolean boolean_folder;
     LayoutInflater inflater;
-    //    PhotoFolderAdapter photoFolderAdapter;
-    FolderAdapter folderAdapter;
+    AlbumAdapter albumAdapter;
     RecyclerView recyclerView;
     Button startBtn;
     TextView pageTitle;
@@ -71,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
             startBtn.setVisibility(View.GONE);
             pageTitle.setVisibility(View.VISIBLE);
             pageTitle.setText("ALBUMS");
-            MainActivityPermissionsDispatcher.findImagePathWithPermissionCheck(MainActivity.this);
+            AlbumActivityPermissionsDispatcher.findImagePathWithPermissionCheck(AlbumActivity.this);
         }
 
-        recyclerView.addItemDecoration(new FolderRecyclerViewDecoration());
+        recyclerView.addItemDecoration(new AlbumRecyclerViewDecoration());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
     }
 
@@ -120,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 List<String> allPaths = new ArrayList<>();
                 allPaths.add(absolutePathOfImage);
-                ImageModel image = new ImageModel();
+                AlbumModel image = new AlbumModel();
                 image.setFolderString(cursor.getString(column_index_folder_name));
                 image.setImagePaths(allPaths);
                 imagePaths.add(image);
@@ -133,45 +129,35 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        folderAdapter = new FolderAdapter();
-        recyclerView.setAdapter(folderAdapter);
-        Log.e("==============", "list size:" + imagePaths.size());
+        albumAdapter = new AlbumAdapter();
+        recyclerView.setAdapter(albumAdapter);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // NOTE: delegate the permission handling to generated method
-        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        AlbumActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            MainActivityPermissionsDispatcher.findImagePathWithPermissionCheck(MainActivity.this);
+            AlbumActivityPermissionsDispatcher.findImagePathWithPermissionCheck(AlbumActivity.this);
         }
     };
-
-//    private AdapterView.OnItemClickListener imageClickListener = new AdapterView.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
-//            intent.putExtra("value", i);
-//            startActivity(intent);
-//        }
-//    };
 
     private View.OnClickListener folderClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             int position = (Integer) view.getTag();
-            Intent intent = new Intent(MainActivity.this, PhotoActivity.class);
+            Intent intent = new Intent(AlbumActivity.this, PhotoActivity.class);
             intent.putExtra("value", position);
             startActivity(intent);
         }
     };
 
-    private class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
+    private class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
         @Override
         public int getItemCount() {
             return imagePaths.size();
@@ -179,20 +165,21 @@ public class MainActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.adapter_photosfolder, parent, false);
-            return new FolderViewHolder(view);
+        public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = inflater.inflate(R.layout.viewholder_album, parent, false);
+            return new AlbumViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
-            ImageModel imageModel = imagePaths.get(position);
+        public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
+            AlbumModel albumModel = imagePaths.get(position);
             holder.root.setTag(position);
-            holder.folderName.setText(imageModel.getFolderString());
-            holder.folderSize.setText(imageModel.getImagePaths().size() + "");
+            holder.folderName.setText(albumModel.getFolderString());
+            holder.folderSize.setText(albumModel.getImagePaths().size() + "");
+
             holder.root.setOnClickListener(folderClickListener);
 
-            Glide.with(MainActivity.this).load("file://" + imageModel.getImagePaths().get(0))
+            Glide.with(AlbumActivity.this).load("file://" + albumModel.getImagePaths().get(0))
 //                .diskCacheStrategy(DiskCacheStrategy.NONE)
 //                .skipMemoryCache(true)
                     .centerCrop()
@@ -200,12 +187,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class FolderViewHolder extends RecyclerView.ViewHolder {
+    private class AlbumViewHolder extends RecyclerView.ViewHolder {
         View root, rootLayout;
         TextView folderName, folderSize;
         ImageView displayedImage;
 
-        private FolderViewHolder(View view) {
+        private AlbumViewHolder(View view) {
             super(view);
 
             root = view;
@@ -219,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class FolderRecyclerViewDecoration extends RecyclerView.ItemDecoration {
+    private class AlbumRecyclerViewDecoration extends RecyclerView.ItemDecoration {
         int spacing = 15;
 
         @Override

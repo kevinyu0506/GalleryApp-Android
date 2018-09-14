@@ -92,7 +92,7 @@ public class EditorActivity extends AppCompatActivity{
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
 
-        uri = Uri.parse("file://" + MainActivity.imagePaths.get(album).getImagePaths().get(index));
+        uri = Uri.parse("file://" + AlbumActivity.imagePaths.get(album).getImagePaths().get(index));
 
 //        UCrop.of(uri, uri)
 ////                .withAspectRatio(16, 9)

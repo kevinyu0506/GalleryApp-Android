@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Kevin on 2018/4/20.
  */
 
-public class ImageModel {
+public class AlbumModel {
 
     private String folderString;
     private List<String> imagePaths;

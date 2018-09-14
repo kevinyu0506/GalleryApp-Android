@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chuntingyu.picme.activities.MainActivity">
+    tools:context="com.chuntingyu.picme.activities.AlbumActivity">
 
     <TextView
         android:id="@+id/main_title_text"
@@ -30,8 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main_title_text"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_margin="10dp" />
 
 </android.widget.RelativeLayout>

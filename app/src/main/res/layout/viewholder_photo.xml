@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8f5e9"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:weightSum="200">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="150"
+        android:background="#c8e6c9"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/photo_displayed_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
