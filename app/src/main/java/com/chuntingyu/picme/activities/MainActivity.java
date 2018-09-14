@@ -1,22 +1,30 @@
 package com.chuntingyu.picme.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.chuntingyu.picme.tools.KYMath;
 import com.chuntingyu.picme.tools.PhotoFolderAdapter;
 import com.chuntingyu.picme.R;
 import com.chuntingyu.picme.models.ImageModel;
@@ -30,10 +38,12 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<ImageModel> imagePaths = new ArrayList<>();
+    public static List<ImageModel> imagePaths = new ArrayList<>();
     boolean boolean_folder;
-    PhotoFolderAdapter folderAdapter;
-    GridView gridView;
+    LayoutInflater inflater;
+    //    PhotoFolderAdapter photoFolderAdapter;
+    FolderAdapter folderAdapter;
+    RecyclerView recyclerView;
     Button startBtn;
     TextView pageTitle;
 
@@ -42,20 +52,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         initView();
     }
 
     private void initView() {
-        gridView = findViewById(R.id.main_gridView);
+        recyclerView = findViewById(R.id.main_recyclerView);
         startBtn = findViewById(R.id.start_btn_text);
         pageTitle = findViewById(R.id.main_title_text);
 
-        gridView.setOnItemClickListener(imageClickListener);
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
-            startBtn.setVisibility(View.GONE);
-            pageTitle.setVisibility(View.VISIBLE);
+            startBtn.setVisibility(View.VISIBLE);
+            pageTitle.setVisibility(View.GONE);
             startBtn.setOnClickListener(startClickListener);
         } else {
             startBtn.setVisibility(View.GONE);
@@ -63,23 +73,10 @@ public class MainActivity extends AppCompatActivity {
             pageTitle.setText("ALBUMS");
             MainActivityPermissionsDispatcher.findImagePathWithPermissionCheck(MainActivity.this);
         }
+
+        recyclerView.addItemDecoration(new FolderRecyclerViewDecoration());
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
     }
-
-    private View.OnClickListener startClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            MainActivityPermissionsDispatcher.findImagePathWithPermissionCheck(MainActivity.this);
-        }
-    };
-
-    private AdapterView.OnItemClickListener imageClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
-            intent.putExtra("value", i);
-            startActivity(intent);
-        }
-    };
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void findImagePath() {
@@ -135,8 +132,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("FILE", imagePaths.get(i).getImagePaths().get(j));
             }
         }
-        folderAdapter = new PhotoFolderAdapter(getApplicationContext(), imagePaths);
-        gridView.setAdapter(folderAdapter);
+
+        folderAdapter = new FolderAdapter();
+        recyclerView.setAdapter(folderAdapter);
+        Log.e("==============", "list size:" + imagePaths.size());
     }
 
     @Override
@@ -146,4 +145,88 @@ public class MainActivity extends AppCompatActivity {
         MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+    private View.OnClickListener startClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            MainActivityPermissionsDispatcher.findImagePathWithPermissionCheck(MainActivity.this);
+        }
+    };
+
+//    private AdapterView.OnItemClickListener imageClickListener = new AdapterView.OnItemClickListener() {
+//        @Override
+//        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//            Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
+//            intent.putExtra("value", i);
+//            startActivity(intent);
+//        }
+//    };
+
+    private View.OnClickListener folderClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
+            Intent intent = new Intent(MainActivity.this, PhotoActivity.class);
+            intent.putExtra("value", position);
+            startActivity(intent);
+        }
+    };
+
+    private class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
+        @Override
+        public int getItemCount() {
+            return imagePaths.size();
+        }
+
+        @NonNull
+        @Override
+        public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = inflater.inflate(R.layout.adapter_photosfolder, parent, false);
+            return new FolderViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
+            ImageModel imageModel = imagePaths.get(position);
+            holder.root.setTag(position);
+            holder.folderName.setText(imageModel.getFolderString());
+            holder.folderSize.setText(imageModel.getImagePaths().size() + "");
+            holder.root.setOnClickListener(folderClickListener);
+
+            Glide.with(MainActivity.this).load("file://" + imageModel.getImagePaths().get(0))
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
+                    .centerCrop()
+                    .into(holder.displayedImage);
+        }
+    }
+
+    private class FolderViewHolder extends RecyclerView.ViewHolder {
+        View root, rootLayout;
+        TextView folderName, folderSize;
+        ImageView displayedImage;
+
+        private FolderViewHolder(View view) {
+            super(view);
+
+            root = view;
+            rootLayout = view.findViewById(R.id.root);
+            folderName = view.findViewById(R.id.folder_name_text);
+            folderSize = view.findViewById(R.id.folder_count_text);
+            displayedImage = view.findViewById(R.id.folder_displayed_image);
+
+//            rootLayout.getLayoutParams().width = KYMath.screenSize().x * 170/375;
+            rootLayout.getLayoutParams().height = KYMath.screenSize().y * 200 / 667;
+        }
+    }
+
+    private class FolderRecyclerViewDecoration extends RecyclerView.ItemDecoration {
+        int spacing = 15;
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+
+            outRect.set(spacing, spacing, spacing, spacing);
+        }
+    }
 }

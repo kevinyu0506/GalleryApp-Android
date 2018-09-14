@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#e8f5e9"
+    android:orientation="vertical"
+    android:weightSum="200">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#e8f5e9"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="150"
+        android:background="#c8e6c9"
+        android:gravity="center">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/folder_displayed_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#c8e6c9">
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"/>
 
-            <ImageView
-                android:id="@+id/folder_displayed_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true" />
+    </LinearLayout>
 
-        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
+        android:orientation="vertical"
+        android:weightSum="50">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
         <TextView
             android:id="@+id/folder_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="23"
             android:textColor="#757575"
             android:textSize="15dp"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
         <TextView
             android:id="@+id/folder_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="23"
             android:textColor="#9e9e9e"
             android:textSize="15dp" />
+
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_select"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5">
+</LinearLayout>
 
-    </RelativeLayout>
-
-</RelativeLayout>

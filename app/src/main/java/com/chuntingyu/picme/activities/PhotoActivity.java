@@ -35,7 +35,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     private void initView() {
         startBtnTxt = findViewById(R.id.start_btn_text);
-        gridView = findViewById(R.id.main_gridView);
+        gridView = findViewById(R.id.main_recyclerView);
         titleTxt = findViewById(R.id.main_title_text);
 
         startBtnTxt.setVisibility(View.GONE);

@@ -27,7 +27,7 @@ public class PhotoAdapter extends ArrayAdapter<ImageModel> {
     private List<ImageModel> al_menu;
     private int int_position;
 
-    public PhotoAdapter(Context context, ArrayList<ImageModel> al_menu, int int_position) {
+    public PhotoAdapter(Context context, List<ImageModel> al_menu, int int_position) {
         super(context, R.layout.adapter_photosfolder, al_menu);
 
         this.al_menu = al_menu;
