@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<ImageModel> imagePaths = new ArrayList<>();
     boolean boolean_folder;
-    PhotoFolderAdapter obj_adapter;
+    PhotoFolderAdapter folderAdapter;
     GridView gridView;
     Button startBtn;
     TextView pageTitle;
@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("FILE", imagePaths.get(i).getImagePaths().get(j));
             }
         }
-        obj_adapter = new PhotoFolderAdapter(getApplicationContext(), imagePaths);
-        gridView.setAdapter(obj_adapter);
+        folderAdapter = new PhotoFolderAdapter(getApplicationContext(), imagePaths);
+        gridView.setAdapter(folderAdapter);
     }
 
     @Override
