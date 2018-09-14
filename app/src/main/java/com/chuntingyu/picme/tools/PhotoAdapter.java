@@ -17,13 +17,14 @@ import com.chuntingyu.picme.models.ImageModel;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PhotoAdapter extends ArrayAdapter<ImageModel> {
 
     private Context context;
     private ViewHolder viewHolder;
-    private ArrayList<ImageModel> al_menu;
+    private List<ImageModel> al_menu;
     private int int_position;
 
     public PhotoAdapter(Context context, ArrayList<ImageModel> al_menu, int int_position) {

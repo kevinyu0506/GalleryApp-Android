@@ -17,7 +17,7 @@ import com.chuntingyu.picme.R;
 
 public class PhotoActivity extends AppCompatActivity {
 
-    int int_position;
+    int position;
     GridView gridView;
     PhotoAdapter adapter;
     TextView titleTxt, startBtnTxt;
@@ -27,8 +27,8 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int_position = getIntent().getIntExtra("value", 0);
-        adapter = new PhotoAdapter(this, MainActivity.imagePaths, int_position);
+        position = getIntent().getIntExtra("value", 0);
+        adapter = new PhotoAdapter(this, MainActivity.imagePaths, position);
 
         initView();
     }
@@ -40,7 +40,7 @@ public class PhotoActivity extends AppCompatActivity {
 
         startBtnTxt.setVisibility(View.GONE);
         titleTxt.setVisibility(View.VISIBLE);
-        titleTxt.setText(MainActivity.imagePaths.get(int_position).getFolderString().toUpperCase());
+        titleTxt.setText(MainActivity.imagePaths.get(position).getFolderString().toUpperCase());
 
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(photoClickListener);
@@ -50,7 +50,7 @@ public class PhotoActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent(getApplicationContext(), EditorActivity.class);
-            intent.putExtra("album", int_position);
+            intent.putExtra("album", position);
             intent.putExtra("value", i);
             startActivity(intent);
         }
