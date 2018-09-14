@@ -42,4 +42,6 @@ dependencies {
 
     implementation 'me.jahirfiquitiva:FABsMenu:1.1.4'
 
+    implementation 'gr.pantrif:easy-android-splash-screen:0.0.1'
+
 }

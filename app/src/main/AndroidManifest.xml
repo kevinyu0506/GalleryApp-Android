@@ -17,12 +17,7 @@
 
         <activity
             android:name=".activities.AlbumActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activities.PhotoActivity"
@@ -31,10 +26,22 @@
         <activity
             android:name=".activities.EditorActivity"
             android:screenOrientation="portrait" />
+
         <!--<activity-->
         <!--android:name="com.yalantis.ucrop.UCropActivity"-->
         <!--android:screenOrientation="portrait"-->
-        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
+
+        <activity
+            android:name=".applications.SplashActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
