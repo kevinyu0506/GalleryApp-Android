@@ -67,7 +67,7 @@ public class EditorActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_canvas);
 
         img = findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
@@ -422,18 +422,17 @@ public class EditorActivity extends AppCompatActivity{
     private SimpleTarget target = new SimpleTarget<Bitmap>(500, 500) {
         @Override
         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-//            imageBitmap = bitmap;
-////            emptyBitmap = Bitmap.createBitmap(imageBitmap.getWidth(), imageBitmap.getHeight(), imageBitmap.getConfig());
-//            emptyBitmap = makeTransparentBitmap(imageBitmap, 0);
-//            canvas = new Canvas(emptyBitmap);
-//            canvas.drawBitmap(emptyBitmap, 0,0, paint);
-//
-//            img.setImageBitmap(emptyBitmap);
-//            img2.setImageBitmap(imageBitmap);
+            imageBitmap = bitmap;
+//            emptyBitmap = Bitmap.createBitmap(imageBitmap.getWidth(), imageBitmap.getHeight(), imageBitmap.getConfig());
+            emptyBitmap = makeTransparentBitmap(imageBitmap, 0);
+            canvas = new Canvas(emptyBitmap);
+            canvas.drawBitmap(emptyBitmap, 0,0, paint);
 
-            photoCanvas = findViewById(R.id.photo_canvas);
-            photoCanvas.setmBitmap(bitmap);
+            img.setImageBitmap(emptyBitmap);
+            img2.setImageBitmap(imageBitmap);
 
+//            photoCanvas = findViewById(R.id.photo_canvas);
+//            photoCanvas.setmBitmap(bitmap);
         }
     };
 
@@ -442,7 +441,6 @@ public class EditorActivity extends AppCompatActivity{
                 .load(uri)
                 .asBitmap()
                 .into(target);
-//                .into(photoCanvas);
     }
 
     public void setErase(boolean isErase){
