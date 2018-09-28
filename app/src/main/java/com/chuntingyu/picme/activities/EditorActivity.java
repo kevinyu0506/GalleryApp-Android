@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
+import com.chuntingyu.picme.MyCanvasView;
 import com.chuntingyu.picme.R;
 
 import java.util.UUID;
@@ -43,8 +44,10 @@ public class EditorActivity extends AppCompatActivity{
     ImageView img2;
     RelativeLayout output;
 
-    Bitmap bmp;
-    Bitmap alteredBitmap;
+    MyCanvasView photoCanvas;
+
+    Bitmap imageBitmap;
+    Bitmap emptyBitmap;
     Canvas canvas;
     Paint paint;
     Path path;
@@ -66,11 +69,12 @@ public class EditorActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        img = (ImageView)findViewById(R.id.img);
+        img = findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
-        img2 = (ImageView)findViewById(R.id.img2);
-        eraseBtn = (FloatingActionButton)findViewById(R.id.eraseBtn);
-        output = (RelativeLayout)findViewById(R.id.output);
+        img2 = findViewById(R.id.img2);
+        eraseBtn = findViewById(R.id.eraseBtn);
+        output = findViewById(R.id.output);
+//        photoCanvas = findViewById(R.id.photo_canvas);
 
         eraseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +92,6 @@ public class EditorActivity extends AppCompatActivity{
         mediumBrush = getResources().getInteger(R.integer.medium_size);
         largeBrush = getResources().getInteger(R.integer.large_size);
 
-
         album = getIntent().getIntExtra("album", 0);
         index = getIntent().getIntExtra("value", 0);
 
@@ -104,7 +107,6 @@ public class EditorActivity extends AppCompatActivity{
         initPaint();
 
         initFabMenu();
-
     }
 
     private void initFabMenu() {
@@ -317,7 +319,6 @@ public class EditorActivity extends AppCompatActivity{
     }
 
     private void initPaint(){
-
         brushSize = getResources().getInteger(R.integer.medium_size);
         lastBrushSize = brushSize;
 
@@ -363,27 +364,7 @@ public class EditorActivity extends AppCompatActivity{
                 return true;
             }
         });
-
     }
-
-    private SimpleTarget target = new SimpleTarget<Bitmap>(500, 500) {
-
-        @Override
-        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-
-            bmp = bitmap;
-//            alteredBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
-            alteredBitmap = makeTransparentBitmap(bmp, 0);
-            canvas = new Canvas(alteredBitmap);
-            canvas.drawBitmap(alteredBitmap, 0,0, paint);
-
-            img.setImageBitmap(alteredBitmap);
-            img2.setImageBitmap(bmp);
-
-
-        }
-
-    };
 
     private void touchStart(float x, float y) {
 //        paths.clear();
@@ -422,7 +403,6 @@ public class EditorActivity extends AppCompatActivity{
     }
 
     private void undoDrawing() {
-
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
 //        img.invalidate();
 
@@ -437,15 +417,32 @@ public class EditorActivity extends AppCompatActivity{
 //
 //        paths.clear();
 //        paint.setXfermode(null);
-
     }
 
+    private SimpleTarget target = new SimpleTarget<Bitmap>(500, 500) {
+        @Override
+        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+//            imageBitmap = bitmap;
+////            emptyBitmap = Bitmap.createBitmap(imageBitmap.getWidth(), imageBitmap.getHeight(), imageBitmap.getConfig());
+//            emptyBitmap = makeTransparentBitmap(imageBitmap, 0);
+//            canvas = new Canvas(emptyBitmap);
+//            canvas.drawBitmap(emptyBitmap, 0,0, paint);
+//
+//            img.setImageBitmap(emptyBitmap);
+//            img2.setImageBitmap(imageBitmap);
+
+            photoCanvas = findViewById(R.id.photo_canvas);
+            photoCanvas.setmBitmap(bitmap);
+
+        }
+    };
 
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
                 .load(uri)
                 .asBitmap()
                 .into(target);
+//                .into(photoCanvas);
     }
 
     public void setErase(boolean isErase){

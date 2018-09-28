@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -20,7 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
  * Created by Kevin on 2018/4/22.
  */
 
-public class MyCanvasView extends View{
+public class MyCanvasView extends ImageView{
 
     public int test = 0;
     public Bitmap mBitmap = null;
