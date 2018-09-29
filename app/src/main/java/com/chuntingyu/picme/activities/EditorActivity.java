@@ -35,16 +35,12 @@ import jahirfiquitiva.libs.fabsmenu.FABsMenuListener;
 import jahirfiquitiva.libs.fabsmenu.TitleFAB;
 
 public class EditorActivity extends AppCompatActivity{
-
     int album;
     int index;
     Uri uri;
 
     ImageView img;
-    ImageView img2;
     RelativeLayout output;
-
-    MyCanvasView photoCanvas;
 
     Bitmap imageBitmap;
     Bitmap emptyBitmap;
@@ -62,8 +58,6 @@ public class EditorActivity extends AppCompatActivity{
 
     private boolean erase=false;
 
-//    private ArrayList<Path> paths = new ArrayList<Path>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +65,8 @@ public class EditorActivity extends AppCompatActivity{
 
         img = findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
-        img2 = findViewById(R.id.img2);
         eraseBtn = findViewById(R.id.eraseBtn);
         output = findViewById(R.id.output);
-//        photoCanvas = findViewById(R.id.photo_canvas);
 
         eraseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -428,11 +420,9 @@ public class EditorActivity extends AppCompatActivity{
             canvas = new Canvas(emptyBitmap);
             canvas.drawBitmap(emptyBitmap, 0,0, paint);
 
-            img.setImageBitmap(emptyBitmap);
-            img2.setImageBitmap(imageBitmap);
-
-//            photoCanvas = findViewById(R.id.photo_canvas);
-//            photoCanvas.setmBitmap(bitmap);
+//            img.setImageBitmap(emptyBitmap);
+//            img2.setImageBitmap(imageBitmap);
+            img.setImageBitmap(imageBitmap);
         }
     };
 
@@ -506,6 +496,4 @@ public class EditorActivity extends AppCompatActivity{
 //            final Throwable cropError = UCrop.getError(data);
 //        }
 //    }
-
-
 }
