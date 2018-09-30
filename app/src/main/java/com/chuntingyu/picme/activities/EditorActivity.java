@@ -243,13 +243,11 @@ public class EditorActivity extends AppCompatActivity{
         savePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 AlertDialog.Builder saveDialog = new AlertDialog.Builder(EditorActivity.this);
                 saveDialog.setTitle("Save drawing");
                 saveDialog.setMessage("Save drawing to device Gallery?");
                 saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
-
                         //save drawing
                         output.setDrawingCacheEnabled(true);
                         String imgSaved = MediaStore.Images.Media.insertImage(
@@ -257,7 +255,6 @@ public class EditorActivity extends AppCompatActivity{
                                 UUID.randomUUID().toString()+".png", "drawing");
 
                         output.destroyDrawingCache();
-
                     }
                 });
                 saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -266,9 +263,6 @@ public class EditorActivity extends AppCompatActivity{
                     }
                 });
                 saveDialog.show();
-
-
-
             }
         });
 
@@ -285,17 +279,10 @@ public class EditorActivity extends AppCompatActivity{
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                undoDrawing();
-                img.invalidate();
-
-                menu.collapse();
+                img.undoDrawing();
+//                menu.collapse();
             }
         });
-
-
-
-
     }
 
     private void initPaint(){
@@ -316,8 +303,8 @@ public class EditorActivity extends AppCompatActivity{
         paint.setStrokeWidth(brushSize); // default: Hairline-width (really thin)
     }
 
-    private void undoDrawing() {
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//    private void undoDrawing() {
+//        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
 //        img.invalidate();
 
 //        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
@@ -331,7 +318,7 @@ public class EditorActivity extends AppCompatActivity{
 //
 //        paths.clear();
 //        paint.setXfermode(null);
-    }
+//    }
 
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
@@ -381,27 +368,5 @@ public class EditorActivity extends AppCompatActivity{
 //    }
 //    public float getLastBrushSize(){
 //        return lastBrushSize;
-//    }
-
-    private static Bitmap makeTransparentBitmap(Bitmap bmp, int alpha) {
-        Bitmap transBmp = Bitmap.createBitmap(bmp.getWidth(),
-                bmp.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(transBmp);
-        final Paint paint = new Paint();
-        paint.setAlpha(alpha);
-        canvas.drawBitmap(bmp, 0, 0, paint);
-        return transBmp;
-    }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-//            final Uri resultUri = UCrop.getOutput(data);
-//
-//            Glide.with(this).load(resultUri).into(img);
-//
-//        } else if (resultCode == UCrop.RESULT_ERROR) {
-//            final Throwable cropError = UCrop.getError(data);
-//        }
 //    }
 }

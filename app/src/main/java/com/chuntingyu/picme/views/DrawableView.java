@@ -11,14 +11,21 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class DrawableView extends ImageView {
     private Paint paint;
     private Path path;
-    private float mX, mY, nX, nY;
+    private float mX, mY;
+    private List<Path> paths = new ArrayList<>();
+    private Map<Integer, List<Path>> pathsMap = new HashMap<>();
+    private Integer count = 0;
 
     public DrawableView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
         initParam(context, attrs);
     }
 
@@ -27,7 +34,6 @@ public class DrawableView extends ImageView {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(12);
-        path = new Path();
     }
 
     @Override
@@ -40,7 +46,20 @@ public class DrawableView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawPath(path, paint);
+        if (paths.size() > 0) {
+            for (Path path : paths) {
+                canvas.drawPath(path, paint);
+            }
+        }
+
+        if (pathsMap.size() > 0) {
+            for (int i = 0; i < pathsMap.size() - 1; i++) {
+                List<Path> paths = pathsMap.get(i);
+                for (Path path : paths) {
+                    canvas.drawPath(path, paint);
+                }
+            }
+        }
     }
 
     @Override
@@ -48,43 +67,47 @@ public class DrawableView extends ImageView {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawStart(event.getX(), event.getY());
-                invalidate();
                 Log.e("========", "touch DOWN");
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("========", "touch MOVE");
-                invalidate();
                 drawMove(event.getX(), event.getY());
+                invalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e("========", "touch UP");
-                invalidate();
                 drawEnd();
                 break;
         }
         return true;
     }
 
+    public void undoDrawing() {
+        paths.clear();
+        pathsMap.remove(count);
+        count--;
+        invalidate();
+    }
+
     private void drawStart(float x, float y) {
-//        paths.clear();
+        paths = new ArrayList<>();
+        path = new Path();
         path.moveTo(x, y);
         mX = x;
         mY = y;
     }
 
     private void drawMove(float x, float y) {
-        nX = mX;
-        nY = mY;
-
         path.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+        paths.add(path);
         // Reset mX and mY to the last drawn point.
         mX = x;
         mY = y;
+        pathsMap.put(count, paths);
     }
 
     private void drawEnd() {
         // Reset the path so it doesn't get drawn again.
-//        paths.add(path);
-//        path.reset();
+        count++;
     }
 }
