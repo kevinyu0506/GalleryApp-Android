@@ -27,6 +27,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.chuntingyu.picme.MyCanvasView;
 import com.chuntingyu.picme.R;
+import com.chuntingyu.picme.views.DrawableView;
 
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class EditorActivity extends AppCompatActivity{
     int index;
     Uri uri;
 
-    ImageView img;
+    DrawableView img;
     RelativeLayout output;
 
     Bitmap imageBitmap;
@@ -327,35 +328,35 @@ public class EditorActivity extends AppCompatActivity{
         paint.setStrokeCap(Paint.Cap.ROUND); // default: BUTT
         paint.setStrokeWidth(brushSize); // default: Hairline-width (really thin)
 
-        img.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-
-                float x = event.getX();
-                float y = event.getY();
-
-                // Invalidate() is inside the case statements because there are many
-                // other types of motion events passed into this listener,
-                // and we don't want to invalidate the view for those.
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        touchStart(x, y);
-                        // No need to invalidate because we are not drawing anything.
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        touchMove(x, y);
-                        img.invalidate();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        touchUp();
-                        // No need to invalidate because we are not drawing anything.
-                        break;
-                    default:
-                        // Do nothing.
-                }
-                return true;
-            }
-        });
+//        img.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//
+//                float x = event.getX();
+//                float y = event.getY();
+//
+//                // Invalidate() is inside the case statements because there are many
+//                // other types of motion events passed into this listener,
+//                // and we don't want to invalidate the view for those.
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        touchStart(x, y);
+//                        // No need to invalidate because we are not drawing anything.
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        touchMove(x, y);
+//                        img.invalidate();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        touchUp();
+//                        // No need to invalidate because we are not drawing anything.
+//                        break;
+//                    default:
+//                        // Do nothing.
+//                }
+//                return true;
+//            }
+//        });
     }
 
     private void touchStart(float x, float y) {
