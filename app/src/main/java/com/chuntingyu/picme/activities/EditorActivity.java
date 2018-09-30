@@ -15,17 +15,11 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.chuntingyu.picme.MyCanvasView;
 import com.chuntingyu.picme.R;
 import com.chuntingyu.picme.views.DrawableView;
 
@@ -42,9 +36,6 @@ public class EditorActivity extends AppCompatActivity{
 
     DrawableView img;
     RelativeLayout output;
-
-    Bitmap imageBitmap;
-    Bitmap emptyBitmap;
     Canvas canvas;
     Paint paint;
     Path path;
@@ -53,10 +44,6 @@ public class EditorActivity extends AppCompatActivity{
 
     private float smallBrush, mediumBrush, largeBrush;
     private float brushSize, lastBrushSize;
-
-    private float mX, mY;
-    private static final float TOUCH_TOLERANCE = 4;
-
     private boolean erase=false;
 
     @Override
@@ -327,72 +314,6 @@ public class EditorActivity extends AppCompatActivity{
         paint.setStrokeJoin(Paint.Join.ROUND); // default: MITER
         paint.setStrokeCap(Paint.Cap.ROUND); // default: BUTT
         paint.setStrokeWidth(brushSize); // default: Hairline-width (really thin)
-
-//        img.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//
-//                float x = event.getX();
-//                float y = event.getY();
-//
-//                // Invalidate() is inside the case statements because there are many
-//                // other types of motion events passed into this listener,
-//                // and we don't want to invalidate the view for those.
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        touchStart(x, y);
-//                        // No need to invalidate because we are not drawing anything.
-//                        break;
-//                    case MotionEvent.ACTION_MOVE:
-//                        touchMove(x, y);
-//                        img.invalidate();
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        touchUp();
-//                        // No need to invalidate because we are not drawing anything.
-//                        break;
-//                    default:
-//                        // Do nothing.
-//                }
-//                return true;
-//            }
-//        });
-    }
-
-    private void touchStart(float x, float y) {
-//        paths.clear();
-        path.moveTo(x, y);
-        mX = x;
-        mY = y;
-    }
-
-    private void touchMove(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
-        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            // QuadTo() adds a quadratic bezier from the last point,
-            // approaching control point (x1,y1), and ending at (x2,y2).
-            path.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
-            // Reset mX and mY to the last drawn point.
-            mX = x;
-            mY = y;
-            // Save the path in the extra bitmap,
-            // which we access through its canvas.
-
-//            paths.add(path);
-
-//            for (Path p : paths) {
-//                canvas.drawPath(p, paint);
-//            }
-
-            canvas.drawPath(path, paint);
-        }
-    }
-
-    private void touchUp() {
-        // Reset the path so it doesn't get drawn again.
-//        paths.add(path);
-        path.reset();
     }
 
     private void undoDrawing() {
@@ -412,26 +333,12 @@ public class EditorActivity extends AppCompatActivity{
 //        paint.setXfermode(null);
     }
 
-    private SimpleTarget target = new SimpleTarget<Bitmap>(500, 500) {
-        @Override
-        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-            imageBitmap = bitmap;
-//            emptyBitmap = Bitmap.createBitmap(imageBitmap.getWidth(), imageBitmap.getHeight(), imageBitmap.getConfig());
-            emptyBitmap = makeTransparentBitmap(imageBitmap, 0);
-            canvas = new Canvas(emptyBitmap);
-            canvas.drawBitmap(emptyBitmap, 0,0, paint);
-
-//            img.setImageBitmap(emptyBitmap);
-//            img2.setImageBitmap(imageBitmap);
-            img.setImageBitmap(imageBitmap);
-        }
-    };
-
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
                 .load(uri)
                 .asBitmap()
-                .into(target);
+//                .into(target);
+                .into(img);
     }
 
     public void setErase(boolean isErase){
