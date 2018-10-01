@@ -85,7 +85,9 @@ public class DrawableView extends ImageView {
     public void undoDrawing() {
         paths.clear();
         pathsMap.remove(count);
-        count--;
+        if (count > 0) {
+            count--;
+        }
         invalidate();
     }
 
