@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -51,7 +53,6 @@ public class DrawableView extends ImageView {
                 canvas.drawPath(path, paint);
             }
         }
-
         if (pathsMap.size() > 0) {
             for (int i = 0; i < pathsMap.size() - 1; i++) {
                 List<Path> paths = pathsMap.get(i);
@@ -89,6 +90,18 @@ public class DrawableView extends ImageView {
             count--;
         }
         invalidate();
+    }
+
+    public void setPaintColor(int color) {
+        paint.setColor(color);
+    }
+
+    public void setPaintErase(Boolean b) {
+        if (b) {
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        } else {
+            paint.setXfermode(null);
+        }
     }
 
     private void drawStart(float x, float y) {

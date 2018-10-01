@@ -44,7 +44,7 @@ public class EditorActivity extends AppCompatActivity{
 
     private float smallBrush, mediumBrush, largeBrush;
     private float brushSize, lastBrushSize;
-    private boolean erase=false;
+    private boolean erase = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +60,12 @@ public class EditorActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if (erase) {
-                    setErase(false);
+//                    setErase(false);
+                    img.setPaintErase(false);
                 }
                 else {
-                    setErase(true);
+//                    setErase(true);
+                    img.setPaintErase(true);
                 }
             }
         });
@@ -102,7 +104,8 @@ public class EditorActivity extends AppCompatActivity{
             public void onMenuClicked(FABsMenu fabsMenu) {
                 super.onMenuClicked(fabsMenu);
                 // Default implementation opens the menu on click
-                setErase(false);
+//                setErase(false);
+                img.setPaintErase(false);
             }
 
             @Override
@@ -172,8 +175,10 @@ public class EditorActivity extends AppCompatActivity{
                 color1Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor1));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor1));
+//                        paint.setColor(getResources().getColor(R.color.painterColor1));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -183,8 +188,10 @@ public class EditorActivity extends AppCompatActivity{
                 color2Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor2));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor2));
+//                        paint.setColor(getResources().getColor(R.color.painterColor2));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -194,8 +201,10 @@ public class EditorActivity extends AppCompatActivity{
                 color3Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor3));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor3));
+//                        paint.setColor(getResources().getColor(R.color.painterColor3));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -205,8 +214,10 @@ public class EditorActivity extends AppCompatActivity{
                 color4Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor4));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor4));
+//                        paint.setColor(getResources().getColor(R.color.painterColor4));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -216,8 +227,10 @@ public class EditorActivity extends AppCompatActivity{
                 color5Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor5));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor5));
+//                        paint.setColor(getResources().getColor(R.color.painterColor5));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -227,8 +240,10 @@ public class EditorActivity extends AppCompatActivity{
                 color6Btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        setErase(false);
-                        paint.setColor(getResources().getColor(R.color.painterColor6));
+//                        setErase(false);
+                        img.setPaintErase(false);
+                        img.setPaintColor(getResources().getColor(R.color.painterColor6));
+//                        paint.setColor(getResources().getColor(R.color.painterColor6));
                         colorDialog.dismiss();
                         menu.collapse();
                     }
@@ -270,7 +285,8 @@ public class EditorActivity extends AppCompatActivity{
         textBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setErase(true);
+//                setErase(true);
+                img.setPaintErase(true);
                 menu.collapse();
             }
         });
