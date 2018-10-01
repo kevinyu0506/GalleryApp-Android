@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.chuntingyu.picme.R;
 import com.chuntingyu.picme.views.DrawableView;
 
@@ -336,12 +338,21 @@ public class EditorActivity extends AppCompatActivity{
 //        paint.setXfermode(null);
 //    }
 
+    private SimpleTarget target = new SimpleTarget<Bitmap>() {
+        @Override
+        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+            // do something with the bitmap
+            // for demonstration purposes, let's just set it to an ImageView
+            img.setImageBitmap( bitmap );
+        }
+    };
+
     private void loadImageSimpleTarget() {
         Glide.with(this) // could be an issue!
                 .load(uri)
                 .asBitmap()
-//                .into(target);
-                .into(img);
+                .into(target);
+//                .into(img);
     }
 
     public void setErase(boolean isErase){

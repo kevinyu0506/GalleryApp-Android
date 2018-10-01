@@ -1,6 +1,7 @@
 package com.chuntingyu.picme.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -18,7 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DrawableView extends ImageView {
+public class DrawableView extends ViewGroup {
+    private ImageView imageView;
+//    private ImageView paintingView;
     private Paint paint;
     private Path path;
     private float mX, mY;
@@ -32,10 +36,25 @@ public class DrawableView extends ImageView {
     }
 
     private void initParam(Context context, AttributeSet attrs) {
+        imageView = new ImageView(context);
+//        paintingView = new ImageView(context);
+
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(12);
+
+        addView(imageView);
+//        addView(paintingView);
+    }
+
+    public void setImageBitmap(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
+//        paintingView.setImageBitmap(bitmap);
+//        paintingView.setBackgroundColor(Color.BLACK);
+//        paintingView.setAlpha(0.9f);
+
+//        requestLayout();
     }
 
     @Override
@@ -43,6 +62,25 @@ public class DrawableView extends ImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
+
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+        imageView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.getMode(widthMeasureSpec)), MeasureSpec.makeMeasureSpec(height, MeasureSpec.getMode(heightMeasureSpec)));
+//        paintingView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.getMode(widthMeasureSpec)), MeasureSpec.makeMeasureSpec(height, MeasureSpec.getMode(heightMeasureSpec)));
+    }
+
+    @Override
+    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+        int ivl = getMeasuredWidth() - imageView.getMeasuredWidth();
+        int ivt = getMeasuredHeight() - imageView.getMeasuredHeight();
+        int ivr = imageView.getMeasuredWidth();
+        int ivb = imageView.getMeasuredHeight();
+//        imageView.layout(ivl, ivt, ivr, ivb);
+        imageView.layout(0, 0, ivr, ivb);
+
+//        int pvh = paintingView.getMeasuredHeight();
+//        int pvw = paintingView.getMeasuredWidth();
+//        paintingView.layout(ivl, ivt, ivr, ivb);
     }
 
     @Override
@@ -61,6 +99,19 @@ public class DrawableView extends ImageView {
                 }
             }
         }
+    }
+
+    public Bitmap makeTransparent(Bitmap src, int value) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap transBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(transBitmap);
+        canvas.drawARGB(0, 0, 0, 0);
+        // config paint
+        final Paint paint = new Paint();
+        paint.setAlpha(value);
+        canvas.drawBitmap(src, 0, 0, paint);
+        return transBitmap;
     }
 
     @Override
