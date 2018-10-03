@@ -74,12 +74,13 @@ public class DrawableView extends ViewGroup {
 
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-        int ivl = getMeasuredWidth() - imageView.getMeasuredWidth();
-        int ivt = getMeasuredHeight() - imageView.getMeasuredHeight();
+        int ivl = (getMeasuredWidth() - imageView.getMeasuredWidth())/2;
+        int ivt = (getMeasuredHeight() - imageView.getMeasuredHeight())/2;
         int ivr = imageView.getMeasuredWidth();
         int ivb = imageView.getMeasuredHeight();
-//        imageView.layout(ivl, ivt, ivr, ivb);
         imageView.layout(0, 0, ivr, ivb);
+        Log.e("=======", "width: " + getMeasuredWidth() + ", height: " + getMeasuredHeight());
+        Log.e("=======", "ivl: " + ivl + ", ivt: " + ivt + ", ivr: " + ivr + ", ivb: " + ivb );
 
 //        int pvh = paintingView.getMeasuredHeight();
 //        int pvw = paintingView.getMeasuredWidth();

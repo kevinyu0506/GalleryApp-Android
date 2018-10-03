@@ -51,7 +51,7 @@ public class EditorActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas);
+        setContentView(R.layout.activity_drawing);
 
         img = findViewById(R.id.img);
         img.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
