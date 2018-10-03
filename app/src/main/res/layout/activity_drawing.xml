@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/output"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="120dp"
@@ -20,11 +20,7 @@
         <com.chuntingyu.picme.views.DrawableView
             android:id="@+id/img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:scaleType="fitXY" />
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

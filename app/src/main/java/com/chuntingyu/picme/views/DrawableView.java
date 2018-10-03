@@ -37,6 +37,8 @@ public class DrawableView extends ViewGroup {
 
     private void initParam(Context context, AttributeSet attrs) {
         imageView = new ImageView(context);
+        imageView.setCropToPadding(true);
+        imageView.setAdjustViewBounds(true);
 //        paintingView = new ImageView(context);
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -50,6 +52,7 @@ public class DrawableView extends ViewGroup {
 
     public void setImageBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
+
 //        paintingView.setImageBitmap(bitmap);
 //        paintingView.setBackgroundColor(Color.BLACK);
 //        paintingView.setAlpha(0.9f);
