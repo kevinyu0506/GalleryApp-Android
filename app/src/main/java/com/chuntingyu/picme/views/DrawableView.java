@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -39,6 +40,7 @@ public class DrawableView extends ViewGroup {
         imageView = new ImageView(context);
         imageView.setCropToPadding(true);
         imageView.setAdjustViewBounds(true);
+
 //        paintingView = new ImageView(context);
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -52,12 +54,13 @@ public class DrawableView extends ViewGroup {
 
     public void setImageBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
+        imageView.setOnTouchListener(imageDrawListener);
 
 //        paintingView.setImageBitmap(bitmap);
 //        paintingView.setBackgroundColor(Color.BLACK);
 //        paintingView.setAlpha(0.9f);
 
-//        requestLayout();
+        requestLayout();
     }
 
     @Override
@@ -118,25 +121,47 @@ public class DrawableView extends ViewGroup {
         return transBitmap;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                drawStart(event.getX(), event.getY());
-                Log.e("========", "touch DOWN");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.e("========", "touch MOVE");
-                drawMove(event.getX(), event.getY());
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.e("========", "touch UP");
-                drawEnd();
-                break;
+    private View.OnTouchListener imageDrawListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    drawStart(event.getX(), event.getY());
+                    Log.e("========", "touch DOWN");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    Log.e("========", "touch MOVE");
+                    drawMove(event.getX(), event.getY());
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    Log.e("========", "touch UP");
+                    drawEnd();
+                    break;
+            }
+            return true;
         }
-        return true;
-    }
+    };
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                drawStart(event.getX(), event.getY());
+//                Log.e("========", "touch DOWN");
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.e("========", "touch MOVE");
+//                drawMove(event.getX(), event.getY());
+//                invalidate();
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.e("========", "touch UP");
+//                drawEnd();
+//                break;
+//        }
+//        return true;
+//    }
 
     public void undoDrawing() {
         paths.clear();

@@ -23,12 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="507"
+            android:gravity="center"
+            android:orientation="vertical"
             android:padding="20dp">
 
             <com.chuntingyu.picme.views.DrawableView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
