@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -62,17 +63,31 @@ public class DrawableView extends ViewGroup {
         imageView.setCropToPadding(true);
         imageView.setAdjustViewBounds(true);
 
-        if (bitmap.getWidth() > bitmap.getHeight()) {
+        if (bitmap.getWidth() >= bitmap.getHeight()) {
             float i = ((float)getMeasuredWidth())/((float)bitmap.getWidth());
             float imageHeight = i * (bitmap.getHeight());
             imageView.setLayoutParams(new LinearLayout.LayoutParams(getMeasuredWidth(), (int) imageHeight));
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(i, i);
+            Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            Log.e("====", "Fat one, " + "origin bitmap width: " + bitmap.getWidth() + " scaled bitmap width: " + scaledBitmap.getWidth());
+            Log.e("====", "Fat one, " + "origin bitmap height: " + bitmap.getHeight() + " scaled bitmap height: " + scaledBitmap.getHeight());
+            imageView.setImageBitmap(scaledBitmap);
+
         } else if (bitmap.getWidth() < bitmap.getHeight()) {
             float j = ((float)getMeasuredHeight())/((float)bitmap.getHeight());
             float imageWidth = j * (bitmap.getWidth());
             imageView.setLayoutParams(new LinearLayout.LayoutParams((int) imageWidth, getMeasuredHeight()));
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(j, j);
+            Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            Log.e("====", "Tall one");
+            imageView.setImageBitmap(scaledBitmap);
         }
 
-        imageView.setImageBitmap(bitmap);
+//        imageView.setImageBitmap(bitmap);
         imageView.setOnTouchListener(imageDrawListener);
 
         addView(imageView);
@@ -112,7 +127,7 @@ public class DrawableView extends ViewGroup {
             int ivt = (getMeasuredHeight() - imageView.getMeasuredHeight())/2;
             int ivr = imageView.getMeasuredWidth();
             int ivb = imageView.getMeasuredHeight();
-            imageView.layout(ivl, ivt, ivr, ivb);
+            imageView.layout(ivl, ivt, ivr + ivl, ivb + ivt);
             Log.e("=======", "width: " + getMeasuredWidth() + ", height: " + getMeasuredHeight());
             Log.e("=======", "ivl: " + ivl + ", ivt: " + ivt + ", ivr: " + ivr + ", ivb: " + ivb );
         }
