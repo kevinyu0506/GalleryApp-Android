@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -343,6 +344,7 @@ public class EditorActivity extends AppCompatActivity{
         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
             // do something with the bitmap
             // for demonstration purposes, let's just set it to an ImageView
+            Log.e("====", "load image bitmap success!");
             img.setImageBitmap( bitmap );
         }
     };
