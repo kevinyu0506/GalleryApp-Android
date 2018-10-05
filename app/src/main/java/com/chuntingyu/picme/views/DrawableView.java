@@ -112,7 +112,7 @@ public class DrawableView extends ViewGroup {
             int ivt = (getMeasuredHeight() - imageView.getMeasuredHeight())/2;
             int ivr = imageView.getMeasuredWidth();
             int ivb = imageView.getMeasuredHeight();
-            imageView.layout(ivl, ivt, ivr, ivb);
+            imageView.layout(ivl, ivt, ivr + ivl, ivb + ivt);
             Log.e("=======", "width: " + getMeasuredWidth() + ", height: " + getMeasuredHeight());
             Log.e("=======", "ivl: " + ivl + ", ivt: " + ivt + ", ivr: " + ivr + ", ivb: " + ivb );
         }
