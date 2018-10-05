@@ -5,28 +5,31 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/small_brush"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/sml"
+        android:layout_margin="20dp"
         android:src="@drawable/small" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/medium_brush"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/med"
+        android:layout_margin="20dp"
         android:src="@drawable/medium" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/large_brush"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/lrg"
+        android:layout_margin="20dp"
         android:src="@drawable/large" />
 
 </LinearLayout>

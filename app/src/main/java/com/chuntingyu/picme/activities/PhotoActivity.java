@@ -58,7 +58,7 @@ public class PhotoActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             int photoPosition = (Integer) view.getTag();
-            Intent intent = new Intent(PhotoActivity.this, EditorActivity.class);
+            Intent intent = new Intent(PhotoActivity.this, DrawingActivity.class);
             intent.putExtra("album", albumPosition);
             intent.putExtra("value", photoPosition);
             startActivity(intent);

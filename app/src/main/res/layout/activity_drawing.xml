@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e8f5e9"
-    tools:context="com.chuntingyu.picme.activities.EditorActivity">
+    tools:context="com.chuntingyu.picme.activities.DrawingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:padding="20dp">
 
             <com.chuntingyu.picme.views.EditableView
-                android:id="@+id/img"
+                android:id="@+id/drawing_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -50,7 +50,7 @@
 
         <!-- FABs Menu is the main view. It will contain all the items FABs and it create the menu fab itself -->
         <jahirfiquitiva.libs.fabsmenu.FABsMenu
-            android:id="@+id/fabs_menu"
+            android:id="@+id/fab_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -65,7 +65,7 @@
 
             <!-- This is the item that appears at the top of the menu -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/undo"
+                android:id="@+id/fab_undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:backgroundTint="@color/fabColor6"
@@ -77,7 +77,7 @@
                 fab:srcCompat="@drawable/ic_undo_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/save_photo"
+                android:id="@+id/fab_save_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:backgroundTint="@color/fabColor4"
@@ -89,7 +89,7 @@
                 fab:srcCompat="@drawable/ic_file_download_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/text_field"
+                android:id="@+id/fab_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:backgroundTint="@color/fabColor5"
@@ -101,7 +101,7 @@
                 fab:srcCompat="@drawable/ic_text_fields_white_24dp" />
 
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/color_palette"
+                android:id="@+id/fab_color_palette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:backgroundTint="@color/fabColor3"
@@ -114,7 +114,7 @@
 
             <!-- This item will appear just above the menu FAB -->
             <jahirfiquitiva.libs.fabsmenu.TitleFAB
-                android:id="@+id/painter_size"
+                android:id="@+id/fab_painter_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:backgroundTint="@color/fabColor2"
@@ -130,7 +130,7 @@
     </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/eraseBtn"
+        android:id="@+id/drawing_erase_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -24,7 +24,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activities.EditorActivity"
+            android:name=".activities.DrawingActivity"
             android:screenOrientation="portrait" />
 
         <!--<activity-->
