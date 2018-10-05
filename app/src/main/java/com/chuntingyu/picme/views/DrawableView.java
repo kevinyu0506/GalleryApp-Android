@@ -8,18 +8,19 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DrawableView extends AppCompatImageView {
-    private Paint paint;
-    private Path path;
+    private Paint paint = null;
+    private Path path = null;
     private float mX, mY;
-    private List<Path> paths = new ArrayList<>();
-    private int color = Color.BLACK;
+    private List<PathPaint> pathPaints = new ArrayList<>();
+    private int paintColor = Color.BLACK;
+    private int paintSize = 12;
+    private PorterDuffXfermode paintMode = null;
 
     public DrawableView(Context context) {
         super(context);
@@ -27,19 +28,14 @@ public class DrawableView extends AppCompatImageView {
     }
 
     private void initParam() {
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(12);
-        path = new Path();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (paths.size() > 0) {
-            for (Path path : paths) {
-                canvas.drawPath(path, paint);
+        if (pathPaints.size() > 0) {
+            for (PathPaint pathPaint : pathPaints) {
+                canvas.drawPath(pathPaint.getPath(), pathPaint.getPaint());
             }
         }
     }
@@ -65,30 +61,41 @@ public class DrawableView extends AppCompatImageView {
     }
 
     public void undoDrawing() {
-        if (paths.size() > 0) {
-            paths.remove(paths.size() - 1);
+        if (pathPaints.size() > 0) {
+            pathPaints.remove(pathPaints.size() - 1);
         }
         invalidate();
     }
 
-    public void setPaintColor(int color) {
-        paint.setColor(color);
+    public void setPaintSize(int size) {
+        this.paintSize = size;
     }
 
-    public void setPaintErase(Boolean b) {
-        if (b) {
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+    public void setPaintColor(int color) {
+        this.paintColor = color;
+    }
+
+    public void setPaintErase(Boolean mode) {
+        if (mode) {
+            this.paintMode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
         } else {
-            paint.setXfermode(null);
+            this.paintMode = null;
         }
     }
 
     private void drawStart(float x, float y) {
         path = new Path();
-        paths.add(path);
         path.moveTo(x, y);
         mX = x;
         mY = y;
+
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(paintColor);
+        paint.setStrokeWidth(paintSize);
+        paint.setXfermode(paintMode);
+
+        pathPaints.add(new PathPaint(path, paint));
     }
 
     private void drawMove(float x, float y) {
@@ -100,5 +107,23 @@ public class DrawableView extends AppCompatImageView {
 
     private void drawEnd() {
         // Reset the path so it doesn't get drawn again.
+    }
+
+    private class PathPaint {
+        private Path path;
+        private Paint paint;
+
+        private PathPaint(Path path, Paint paint) {
+            this.path = path;
+            this.paint = paint;
+        }
+
+        private Paint getPaint() {
+            return this.paint;
+        }
+
+        private Path getPath() {
+            return path;
+        }
     }
 }

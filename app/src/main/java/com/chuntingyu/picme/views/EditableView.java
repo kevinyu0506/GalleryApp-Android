@@ -30,14 +30,6 @@ public class EditableView extends ViewGroup {
     public EditableView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        initParam(context, attrs);
-    }
-
-    private void initParam(Context context, AttributeSet attrs) {
-//        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//        paint.setColor(Color.BLACK);
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(12);
     }
 
     public void setImageBitmap(Bitmap bitmap) {
@@ -58,6 +50,7 @@ public class EditableView extends ViewGroup {
         imageView.setImageBitmap(bitmap);
 
         paintingView = new DrawableView(context);
+        paintingView.setLayerType(LAYER_TYPE_HARDWARE, null);
         Bitmap transparentBitmap = makeTransparent(bitmap, 0);
         paintingView.setImageBitmap(transparentBitmap);
 
@@ -111,5 +104,21 @@ public class EditableView extends ViewGroup {
 
     public void undoDrawing() {
         this.paintingView.undoDrawing();
+    }
+
+    public void setPaintColor(int color) {
+        paintingView.setPaintColor(color);
+    }
+
+    public void setPaintSize(int size) {
+        paintingView.setPaintSize(size);
+    }
+
+    public void setPaintErase(Boolean mode) {
+        if (mode) {
+            paintingView.setPaintErase(true);
+        } else {
+            paintingView.setPaintErase(false);
+        }
     }
 }
